@@ -37,6 +37,8 @@ void AMyActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//UE_LOG(LogTemp, Log, TEXT("Tick %f"), DeltaTime);
+	FVector tempV = GetActorLocation();
+	FVector moveV = FVector(0.0f, _moveSpeed, 0.0f);
 
 	//1. Actor2가 공전할 때 Actor를 바라보며 공전
 	//Actor는 그대로 자전
@@ -48,21 +50,22 @@ void AMyActor::Tick(float DeltaTime)
 		FRotator rot = UKismetMathLibrary::FindLookAtRotation(myV, parentV);
 
 		SetActorRotation(rot);
+
 	}
 	else
 	{
 		FRotator rot = FRotator(0.0f, 90.0f, 0.0f);
 		AddActorWorldRotation(rot * _rotationSpeed * DeltaTime);
+
+		FVector defV = tempV + moveV;
+		SetActorLocation(defV);
 	}
 
 	//2. SetActorLocation()의 문제점
-	FVector tempV = GetActorLocation();
 	//UE_LOG(LogTemp, Log, TEXT("%f, %f, %f"), tempV.X, tempV.Y, tempV.Z);
 
-	FVector moveV = FVector(0.0f, _moveSpeed, 0.0f);
 	//AddActorWorldOffset(moveV * DeltaTime);
 	//AddActorLocalOffset(moveV * DeltaTime);
-	//SetActorLocation(moveV*DeltaTime);
 
 	//3. Quaternion (사원수)
 	//사원수 회전에 대해 조사해보기

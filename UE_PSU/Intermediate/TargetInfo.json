@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "UE_PSU",
+			"Path": "..\\Source\\UE_PSU.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "UE_PSUEditor",
+			"Path": "..\\Source\\UE_PSUEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
