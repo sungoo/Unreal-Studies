@@ -270,6 +270,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyPawn.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyPlayerController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h"/>
     <None Include="..\..\Source\UE_PSU\UE_PSU.Build.cs"/>
     <ClCompile Include="..\..\Source\UE_PSU\UE_PSU.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

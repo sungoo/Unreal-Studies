@@ -49,6 +49,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyPawn.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyPlayerController.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <None Include="..\..\Source\UE_PSU\UE_PSU.Build.cs">
       <Filter>Source\UE_PSU</Filter>
     </None>
