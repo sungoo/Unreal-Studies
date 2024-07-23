@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UE_PSUModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6686b879a83610f015ddaa7858f1c2387d7e84f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04874787379da37f1c8aa7ba648c7d0a874d08ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("UE_PSUModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UE_PSUModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

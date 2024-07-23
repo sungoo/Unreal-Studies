@@ -3,6 +3,9 @@
 
 #include "MyPawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputActionValue.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -43,12 +46,38 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//대리자 : 함수 포인터, 함수 객체 -> CallAble, 콜백함수
-	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyPawn::UpDown);
-	PlayerInputComponent->BindAxis(TEXT("RightLeft"), this, &AMyPawn::RightLeft);
+	//PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyPawn::UpDown);
+	//PlayerInputComponent->BindAxis(TEXT("RightLeft"), this, &AMyPawn::RightLeft);
+
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		// Moving
+		EnhancedInputComponent->BindAction(_moveAction, ETriggerEvent::Triggered, this, &AMyPawn::Move);
+
+		// Looking
+		EnhancedInputComponent->BindAction(_lookAction, ETriggerEvent::Triggered, this, &AMyPawn::Look);
+	}
+}
+
+void AMyPawn::Move(const FInputActionValue& value)
+{
+	FVector2D MovementVector = value.Get<FVector2D>();
+
+	if (Controller != nullptr)
+	{
+		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
+		AddMovementInput(GetActorRightVector(), MovementVector.X);
+	}
 }
 
 void AMyPawn::Look(const FInputActionValue& value)
 {
+	FVector2D LookAxisVector = value.Get<FVector2D>();
+
+	if (Controller != nullptr)
+	{
+		AddControllerYawInput(LookAxisVector.X);
+	}
 }
 
 void AMyPawn::UpDown(float value)
