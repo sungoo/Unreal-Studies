@@ -77,6 +77,8 @@ void AMyPawn::Look(const FInputActionValue& value)
 	if (Controller != nullptr)
 	{
 		AddControllerYawInput(LookAxisVector.X);
+		
+		
 	}
 }
 

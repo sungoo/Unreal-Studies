@@ -37,6 +37,18 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyActor.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyAnimInstance.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyAnimInstance.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyCharacter.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyGameModeBase.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
