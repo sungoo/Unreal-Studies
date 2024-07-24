@@ -55,8 +55,6 @@ void AMyCharacter::BeginPlay()
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	
 }
 
 // Called to bind functionality to input
@@ -71,6 +69,15 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 		// Looking
 		EnhancedInputComponent->BindAction(_lookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+
+		// Jumpping
+		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpAct);
+	
+		// Attacking
+		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+		//EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Ongoing, this, &AMyCharacter::Focus);
+		//EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Completed, this, &AMyCharacter::AttackEnd);
+
 	}
 }
 
@@ -78,7 +85,7 @@ void AMyCharacter::Move(const FInputActionValue& value)
 {
 	FVector2D MovementVector = value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr&&!isAttacked)
 	{
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
@@ -93,5 +100,52 @@ void AMyCharacter::Look(const FInputActionValue& value)
 	{
 		AddControllerYawInput(LookAxisVector.X);
 	}
+}
+
+void AMyCharacter::JumpAct(const FInputActionValue& value)
+{
+	bool isPressed = value.Get<bool>();
+
+	if (isPressed&&!isAttacked)
+	{
+		ACharacter::Jump();
+		UE_LOG(LogTemp, Log, TEXT("jumped"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("notjumped"));
+	}
+}
+
+void AMyCharacter::Attack(const FInputActionValue& value)
+{
+	bool isPressed = value.Get<bool>();
+
+	if (isPressed)
+	{
+		isAttacked = true;
+		UE_LOG(LogTemp, Log, TEXT("Attack!"));
+	}
+}
+
+void AMyCharacter::Focus(const FInputActionValue& value)
+{
+	bool isPressed = value.Get<bool>();
+
+	if (isPressed)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Focus..."));
+	}
+}
+
+void AMyCharacter::AttackEnd()
+{
+	isAttacked = false;
+	UE_LOG(LogTemp, Log, TEXT("Attack End!"));
+}
+
+bool AMyCharacter::GetAttacked()
+{
+	return isAttacked;
 }
 

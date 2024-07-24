@@ -18,10 +18,12 @@ public:
 	UMyAnimInstance();
 
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-
+	void OnAnimationEnded(UAnimMontage* Montage, bool bInterrupted);
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
 	float _speed;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
 	bool _isfalling;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
+	bool _isattacking;
 };

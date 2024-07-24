@@ -17,16 +17,6 @@ class UE_PSU_API AMyCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* _moveAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* _lookAction;
-
-	//Camera
-	class USpringArmComponent* _springArm;
-	class UCameraComponent* _camera;
 
 	// Sets default values for this character's properties
 	AMyCharacter();
@@ -45,4 +35,32 @@ public:
 protected:
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
+	void JumpAct(const FInputActionValue& value);
+	void Attack(const FInputActionValue& value);
+	void Focus(const FInputActionValue& value);
+	
+public:
+	bool GetAttacked();
+	void AttackEnd();
+
+public:
+	/** Move Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _moveAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _lookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _jumpAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _attackAction;
+
+	//Camera
+	class USpringArmComponent* _springArm;
+	class UCameraComponent* _camera;
+
+protected:
+	bool isAttacked;
 };
