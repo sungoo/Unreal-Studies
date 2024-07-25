@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "MyAnimInstance.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -49,12 +50,20 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	//몽타주가 끝날 때, _isAttacked를 false로 바꾸기
+	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
 }
 
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//_myDelegate1.ExecuteIfBound();
+	//HP : 50, MP : 30
+	//_myDelegate3.ExecuteIfBound(50, 30);
+
 }
 
 // Called to bind functionality to input
@@ -75,10 +84,15 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	
 		// Attacking
 		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
-		//EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Ongoing, this, &AMyCharacter::Focus);
-		//EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Completed, this, &AMyCharacter::AttackEnd);
+		
 
 	}
+}
+
+void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	UE_LOG(LogTemp, Log, TEXT("Attack Ended!"));
+	isAttacked = false;
 }
 
 void AMyCharacter::Move(const FInputActionValue& value)
@@ -121,10 +135,11 @@ void AMyCharacter::Attack(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
-	if (isPressed)
+	if (isPressed&&isAttacked == false)
 	{
 		isAttacked = true;
-		UE_LOG(LogTemp, Log, TEXT("Attack!"));
+		auto myAnimI = GetMesh()->GetAnimInstance();
+		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
 	}
 }
 
@@ -136,12 +151,6 @@ void AMyCharacter::Focus(const FInputActionValue& value)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Focus..."));
 	}
-}
-
-void AMyCharacter::AttackEnd()
-{
-	isAttacked = false;
-	UE_LOG(LogTemp, Log, TEXT("Attack End!"));
 }
 
 bool AMyCharacter::GetAttacked()

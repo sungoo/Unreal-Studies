@@ -11,6 +11,10 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+DECLARE_DELEGATE(DelegateTest1);
+DECLARE_DELEGATE_OneParam(DelegateTestOneParam, int32);
+DECLARE_DELEGATE_TwoParams(DelegateTestTwoParam, int32, int32);
+
 UCLASS()
 class UE_PSU_API AMyCharacter : public ACharacter
 {
@@ -32,6 +36,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
+
 protected:
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
@@ -41,7 +48,6 @@ protected:
 	
 public:
 	bool GetAttacked();
-	void AttackEnd();
 
 public:
 	/** Move Input Action */
@@ -57,10 +63,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* _attackAction;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	bool isAttacked = false;
+
 	//Camera
 	class USpringArmComponent* _springArm;
 	class UCameraComponent* _camera;
 
-protected:
-	bool isAttacked;
+	DelegateTest1 _myDelegate1;
+	DelegateTestOneParam _myDelegate2;
+	DelegateTestTwoParam _myDelegate3;
+
 };

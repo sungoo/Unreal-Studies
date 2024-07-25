@@ -4,9 +4,18 @@
 #include "MyAnimInstance.h"
 #include "MyCharacter.h"
 #include "GameFramework/PawnMovementComponent.h"
+#include "Animation/AnimMontage.h"
 
 UMyAnimInstance::UMyAnimInstance()
 {
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> am(
+		TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animation/MyAnimMontage.MyAnimMontage'")
+	);
+	
+	if (am.Succeeded())
+	{
+		_myAnimMontage = am.Object;
+	}
 }
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -23,13 +32,26 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 }
 
-void UMyAnimInstance::OnAnimationEnded(UAnimMontage* Montage, bool bInterrupted)
+void UMyAnimInstance::PlayAttackMontage()
 {
-	AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
-	if (Montage->GetName() == "Cast")
+	if (!Montage_IsPlaying(_myAnimMontage))
 	{
-		// 애니메이션이 종료되었을 때 실행할 코드를 여기에 작성합니다.
-		// 예를 들어, 플레이어의 멤버 변수를 변경하는 코드를 작성할 수 있습니다.
-		myCharacter->AttackEnd();
+		Montage_Play(_myAnimMontage);
+
+		AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
+
+		//구독 신청을 한다.
+		//myCharacter->_myDelegate1.BindUObject(this, &UMyAnimInstance::DelegateTest);
+		//myCharacter->_myDelegate3.BindUObject(this, &UMyAnimInstance::DelegateTest2);
 	}
+}
+
+void UMyAnimInstance::DelegateTest()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Delegate Test"));
+}
+
+void UMyAnimInstance::DelegateTest2(int32 hp, int32 mp)
+{
+	UE_LOG(LogTemp, Warning, TEXT("HP : %d , MP : %d"), hp, mp);
 }
