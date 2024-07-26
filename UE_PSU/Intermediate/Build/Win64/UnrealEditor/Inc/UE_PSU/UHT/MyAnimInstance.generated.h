@@ -14,7 +14,11 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define UE_PSU_MyAnimInstance_generated_h
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execAnimNotify_AttackHit);
+
+
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMyAnimInstance(); \
 	friend struct Z_Construct_UClass_UMyAnimInstance_Statics; \
@@ -23,7 +27,7 @@ public: \
 	DECLARE_SERIALIZER(UMyAnimInstance)
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UMyAnimInstance(UMyAnimInstance&&); \
@@ -35,12 +39,13 @@ public: \
 	NO_API virtual ~UMyAnimInstance();
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_12_PROLOG
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_15_GENERATED_BODY \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_11_PROLOG
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_INCLASS_NO_PURE_DECLS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyAnimInstance_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

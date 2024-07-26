@@ -32,15 +32,15 @@ AMyCharacter::AMyCharacter()
 		FVector(0.0f, 0.0f, 88.0f), FRotator(0.0f, -90.0f, 0.0f)
 	);
 
-	//ÀÚ½Ä »ý¼º
+	//ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 
-	//»ó¼Ó°ü°è ¼³Á¤
+	//ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	_springArm->SetupAttachment(GetCapsuleComponent());
 	_camera->SetupAttachment(_springArm);
 
-	//À§Ä¡ ÃÊ±âÈ­
+	//ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­
 	_springArm->TargetArmLength = 500.0f;
 	_springArm->SetRelativeRotation(FRotator(-35.0f, 0.0f, 0.0f));
 }
@@ -51,8 +51,9 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
-	//¸ùÅ¸ÁÖ°¡ ³¡³¯ ¶§, _isAttacked¸¦ false·Î ¹Ù²Ù±â
+	//ï¿½ï¿½Å¸ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, _isAttackedï¿½ï¿½ falseï¿½ï¿½ ï¿½Ù²Ù±ï¿½
 	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
+	animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 }
 
 // Called every frame
@@ -83,7 +84,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpAct);
 	
 		// Attacking
-		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Triggered, this, &AMyCharacter::AttackA);
 		
 
 	}
@@ -95,12 +96,20 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 	isAttacked = false;
 }
 
+void AMyCharacter::AttackHit()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Attack Hit!!"));
+}
+
 void AMyCharacter::Move(const FInputActionValue& value)
 {
 	FVector2D MovementVector = value.Get<FVector2D>();
 
 	if (Controller != nullptr&&!isAttacked)
 	{
+		_vertical = MovementVector.Y;
+		_horizontal = MovementVector.X;
+
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
 	}
@@ -131,7 +140,7 @@ void AMyCharacter::JumpAct(const FInputActionValue& value)
 	}
 }
 
-void AMyCharacter::Attack(const FInputActionValue& value)
+void AMyCharacter::AttackA(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
@@ -140,6 +149,11 @@ void AMyCharacter::Attack(const FInputActionValue& value)
 		isAttacked = true;
 		auto myAnimI = GetMesh()->GetAnimInstance();
 		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
+
+		_curAttackSection %= 3;
+		_curAttackSection++;
+
+		Cast<UMyAnimInstance>(myAnimI)->JumpToSection(_curAttackSection);
 	}
 }
 

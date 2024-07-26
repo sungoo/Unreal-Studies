@@ -6,6 +6,6 @@
 
 AMyGameModeBase::AMyGameModeBase()
 {
-	//PawnÀÇ ¼³°èµµ¸¦ ¹Þ´Â´Ù.
+	//Pawnï¿½ï¿½ ï¿½ï¿½ï¿½èµµï¿½ï¿½ ï¿½Þ´Â´ï¿½.
 	DefaultPawnClass = AMyPawn::StaticClass();
 }

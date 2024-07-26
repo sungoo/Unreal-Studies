@@ -6,9 +6,8 @@
 #include "Animation/AnimInstance.h"
 #include "MyAnimInstance.generated.h"
 
-/**
- * 
- */
+DECLARE_MULTICAST_DELEGATE(AttackDelegate);
+
 UCLASS()
 class UE_PSU_API UMyAnimInstance : public UAnimInstance
 {
@@ -22,13 +21,27 @@ public:
 	void DelegateTest();
 	void DelegateTest2(int32 hp, int32 mp);
 
+	void JumpToSection(int32 sectionIndex);
+
+	UFUNCTION()
+	void AnimNotify_AttackHit();
+
+	AttackDelegate _attackDelegate;
+
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
 	float _speed;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
 	bool _isfalling;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
+	float _vertical;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
+	float _horizontal;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, meta = (AllowPrivateAccess = true))
 	bool _isattacking;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pawn, meta = (AllowPrivateAccess = true))
 	class UAnimMontage* _myAnimMontage;
+
 };

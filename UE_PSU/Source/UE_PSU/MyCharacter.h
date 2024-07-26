@@ -39,11 +39,14 @@ public:
 	UFUNCTION()
 	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
 
+	UFUNCTION()
+	void AttackHit();
+
 protected:
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
 	void JumpAct(const FInputActionValue& value);
-	void Attack(const FInputActionValue& value);
+	void AttackA(const FInputActionValue& value);
 	void Focus(const FInputActionValue& value);
 	
 public:
@@ -66,8 +69,19 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	bool isAttacked = false;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	float _vertical = 0.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	float _horizontal = 0.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	int _curAttackSection = 0;
+
 	//Camera
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* _springArm;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* _camera;
 
 	DelegateTest1 _myDelegate1;

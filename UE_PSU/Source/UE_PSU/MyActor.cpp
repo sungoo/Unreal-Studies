@@ -40,8 +40,8 @@ void AMyActor::Tick(float DeltaTime)
 	FVector tempV = GetActorLocation();
 	FVector moveV = FVector(0.0f, _moveSpeed, 0.0f);
 
-	//1. Actor2°¡ °øÀüÇÒ ¶§ Actor¸¦ ¹Ù¶óº¸¸ç °øÀü
-	//Actor´Â ±×´ë·Î ÀÚÀü
+	//1. Actor2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Actorï¿½ï¿½ ï¿½Ù¶óº¸¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//Actorï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	if (GetAttachParentActor() != nullptr)
 	{
@@ -57,17 +57,17 @@ void AMyActor::Tick(float DeltaTime)
 		FRotator rot = FRotator(0.0f, 90.0f, 0.0f);
 		AddActorWorldRotation(rot * _rotationSpeed * DeltaTime);
 
-		FVector defV = tempV + moveV;
-		SetActorLocation(defV);
+		//FVector defV = tempV + moveV;
+		//SetActorLocation(defV);
 	}
 
-	//2. SetActorLocation()ÀÇ ¹®Á¦Á¡
+	//2. SetActorLocation()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//UE_LOG(LogTemp, Log, TEXT("%f, %f, %f"), tempV.X, tempV.Y, tempV.Z);
 
 	//AddActorWorldOffset(moveV * DeltaTime);
 	//AddActorLocalOffset(moveV * DeltaTime);
 
-	//3. Quaternion (»ç¿ø¼ö)
-	//»ç¿ø¼ö È¸Àü¿¡ ´ëÇØ Á¶»çÇØº¸±â
+	//3. Quaternion (ï¿½ï¿½ï¿½ï¿½ï¿½)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½
 }
 

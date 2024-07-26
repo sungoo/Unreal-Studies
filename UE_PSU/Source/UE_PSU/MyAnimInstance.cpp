@@ -20,15 +20,15 @@ UMyAnimInstance::UMyAnimInstance()
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
-	//ÁøÂ¥ Áß¿ä!!				//Dynamic_cast
+	//ï¿½ï¿½Â¥ ï¿½ß¿ï¿½!!				//Dynamic_cast
 	AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
 	if (myCharacter != nullptr)
 	{
 		_speed = myCharacter->GetVelocity().Size();
 		_isfalling = myCharacter->GetMovementComponent()->IsFalling();
 		_isattacking = myCharacter->GetAttacked();
-		if (_isattacking)
-			UE_LOG(LogTemp, Log, TEXT("attack true"));
+		_vertical = _vertical + (myCharacter->_vertical - _vertical) * DeltaSeconds;
+		_horizontal = _horizontal + (myCharacter->_horizontal - _horizontal) * DeltaSeconds;
 	}
 }
 
@@ -40,7 +40,7 @@ void UMyAnimInstance::PlayAttackMontage()
 
 		AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
 
-		//±¸µ¶ ½ÅÃ»À» ÇÑ´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		//myCharacter->_myDelegate1.BindUObject(this, &UMyAnimInstance::DelegateTest);
 		//myCharacter->_myDelegate3.BindUObject(this, &UMyAnimInstance::DelegateTest2);
 	}
@@ -54,4 +54,16 @@ void UMyAnimInstance::DelegateTest()
 void UMyAnimInstance::DelegateTest2(int32 hp, int32 mp)
 {
 	UE_LOG(LogTemp, Warning, TEXT("HP : %d , MP : %d"), hp, mp);
+}
+
+void UMyAnimInstance::JumpToSection(int32 sectionIndex)
+{
+	FName sectionName = FName(*FString::Printf(TEXT("Attack%d"), sectionIndex));
+	Montage_JumpToSection(sectionName);
+}
+
+void UMyAnimInstance::AnimNotify_AttackHit()
+{
+	_attackDelegate.Broadcast();
+	UE_LOG(LogTemp, Warning, TEXT("Attack Hit!"));
 }
