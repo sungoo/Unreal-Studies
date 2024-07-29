@@ -40,3 +40,12 @@ auto myAnimI = GetMesh()->GetAnimInstance();
 Cast<UMyAnimInstance>(myAnimI)->DelegateTest2(50, 30);
 	단점 : 클래스간의 결합도가 높아짐 
 	=> 연결된 클래스 중 하나라도 없어지면 터짐
+
+동적할당
+- Actor => SpawnActor로 동적할당.
+- Component => CreateDefaultSubObject로 동적할당.
+
+충돌
+- Block
+- Overlap
+- Ignore

@@ -5,10 +5,12 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyAnimInstance.h"
+#include "Engine/DamageEvents.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -50,10 +52,22 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	Init();
+}
+
+void AMyCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	_animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
 	//��Ÿ�ְ� ���� ��, _isAttacked�� false�� �ٲٱ�
-	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
-	animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+	_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
+	_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+}
+
+void AMyCharacter::Init()
+{
+	_curhp = _maxhp;
 }
 
 // Called every frame
@@ -61,10 +75,10 @@ void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//_myDelegate1.ExecuteIfBound();
-	//HP : 50, MP : 30
-	//_myDelegate3.ExecuteIfBound(50, 30);
-
+	if (!_isActive)
+	{
+		GetMesh()->SetVisibility(false);
+	}
 }
 
 // Called to bind functionality to input
@@ -90,6 +104,25 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	}
 }
 
+float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	//TODO
+	//1. hp -= damage
+	//2. 공격자 이름 출력
+	float damage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+
+	_curhp -= damage;
+
+	UE_LOG(LogTemp, Warning, TEXT("Damaged by %s : %f   hp : %d"),*DamageCauser->GetName(), damage, _curhp);
+
+	if (_curhp <= 0)
+	{
+		_curhp = 0;
+		_isActive = false;
+	}
+	return damage;
+}
+
 void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	UE_LOG(LogTemp, Log, TEXT("Attack Ended!"));
@@ -98,7 +131,48 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 
 void AMyCharacter::AttackHit()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Attack Hit!!"));
+	//하고싶으면 하기
+	// 1. 히트스캔으로 공격하기. AttackRange는 본인 마음대로.
+	// DebugDraw 까지
+	//UE_LOG(LogTemp, Warning, TEXT("Attack Hit!!"));
+	//충돌처리
+	FHitResult hitResult;
+	//본인은 무시..
+	FCollisionQueryParams params(NAME_None, false, this);
+	
+	float attackRange = 500.0f;
+	float attackRadius = 80.0f;
+
+	bool bResult = GetWorld()->SweepSingleByChannel
+	(
+		hitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * attackRange,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeSphere(attackRadius),
+		params
+	);
+
+	FVector vec = GetActorForwardVector() * attackRange;
+	FVector center = GetActorLocation() + vec * 0.5f;
+
+	FColor drawColor = FColor::Green;
+
+	if (bResult && hitResult.GetActor()->IsValidLowLevel())
+	{
+		drawColor = FColor::Red;
+		UE_LOG(LogTemp, Log, TEXT("HitActor : %s"), *hitResult.GetActor()->GetName());
+	
+		//Todo : Takedamage
+		FDamageEvent damageEvent;
+		hitResult.GetActor()->TakeDamage(_atk, damageEvent, GetController(), this);
+		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, nullptr, this, nullptr);
+	}
+
+	DrawDebugSphere(
+		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
+	);
 }
 
 void AMyCharacter::Move(const FInputActionValue& value)
@@ -144,16 +218,15 @@ void AMyCharacter::AttackA(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
-	if (isPressed&&isAttacked == false)
+	if (isPressed && isAttacked == false && _animInstance != nullptr)
 	{
 		isAttacked = true;
-		auto myAnimI = GetMesh()->GetAnimInstance();
-		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
+		_animInstance->PlayAttackMontage();
 
 		_curAttackSection %= 3;
 		_curAttackSection++;
 
-		Cast<UMyAnimInstance>(myAnimI)->JumpToSection(_curAttackSection);
+		_animInstance->JumpToSection(_curAttackSection);
 	}
 }
 
