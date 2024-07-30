@@ -40,15 +40,20 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
+	//Attack function
+	UFUNCTION()
+	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
+	UFUNCTION()
+	void AttackHit();
+	bool GetAttacked();
 	virtual float TakeDamage(
 		float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser
 	) override;
+	int32 GetcurHP();
 
-	UFUNCTION()
-	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
-
-	UFUNCTION()
-	void AttackHit();
+	//Item function
+	bool ItemGetter(class AMyItem* item);
 
 protected:
 	void Move(const FInputActionValue& value);
@@ -56,9 +61,7 @@ protected:
 	void JumpAct(const FInputActionValue& value);
 	void AttackA(const FInputActionValue& value);
 	void Focus(const FInputActionValue& value);
-	
-public:
-	bool GetAttacked();
+	void DropItem(const FInputActionValue& value);
 
 public:
 
@@ -79,6 +82,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* _attackAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _dropItemAction;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	bool isAttacked = false;
 
@@ -91,29 +97,37 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	int _curAttackSection = 0;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _curhp = 0;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _maxhp = 100;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _atk = 30.0f;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	bool _isActive = true;
-
 	//Animation
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	class UMyAnimInstance* _animInstance;
-
+	
 	//Camera
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* _springArm;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* _camera;
 
-	DelegateTest1 _myDelegate1;
-	DelegateTestOneParam _myDelegate2;
-	DelegateTestTwoParam _myDelegate3;
+	//Stats
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	int32 _curhp = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	int32 _maxhp = 100;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	int32 _atk_default = 30.0f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	int32 _atk = 0.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	bool _isActive = true;
+
+
+	//Item
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
+	TArray<class AMyItem*> _items;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
+	int32 inventoryValiable_max = 3;
+
 
 };

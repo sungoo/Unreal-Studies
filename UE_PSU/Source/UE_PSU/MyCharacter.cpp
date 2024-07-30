@@ -2,16 +2,17 @@
 
 
 #include "MyCharacter.h"
+#include "MyAnimInstance.h"
+#include "MyItem.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
+#include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
-#include "MyAnimInstance.h"
 #include "Engine/DamageEvents.h"
 
 // Sets default values
@@ -36,10 +37,12 @@ AMyCharacter::AMyCharacter()
 		FVector(0.0f, 0.0f, 88.0f), FRotator(0.0f, -90.0f, 0.0f)
 	);
 
+	//컨트롤러에 따른 회전 막음
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
 
+	//움직임에 따라 회전하게 변경
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
 
@@ -74,15 +77,19 @@ void AMyCharacter::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	_animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
-	//��Ÿ�ְ� ���� ��, _isAttacked�� false�� �ٲٱ�
-	_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
-	_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
-	_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
+	if (_animInstance->IsValidLowLevel())
+	{
+		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
+		_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
+	}
+
 }
 
 void AMyCharacter::Init()
 {
 	_curhp = _maxhp;
+	_atk = _atk_default;
 	_isActive = true;
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
@@ -129,7 +136,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		// Attacking
 		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Triggered, this, &AMyCharacter::AttackA);
 		
-
+		// DropItem
+		EnhancedInputComponent->BindAction(_dropItemAction, ETriggerEvent::Started, this, &AMyCharacter::DropItem);
 	}
 }
 
@@ -156,6 +164,11 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 		_animInstance->PlayDeathMontage();
 	}
 	return damage;
+}
+
+int32 AMyCharacter::GetcurHP()
+{
+	return _curhp;
 }
 
 void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -210,6 +223,26 @@ void AMyCharacter::AttackHit()
 	);
 }
 
+bool AMyCharacter::ItemGetter(AMyItem* item)
+{
+	if (_items.Num() < inventoryValiable_max)
+	{
+		_items.Add(item);
+
+		int32 atkGain = 10 * _items.Num();
+
+		_atk = _atk_default + atkGain;
+
+		UE_LOG(LogTemp, Warning, TEXT("ATK UP : %d"), _atk);
+
+		return true;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Inventory is Full!!"));
+		return false;
+	}
+}
 
 void AMyCharacter::Move(const FInputActionValue& value)
 {
@@ -284,6 +317,23 @@ void AMyCharacter::Focus(const FInputActionValue& value)
 	if (isPressed)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Focus..."));
+	}
+}
+
+void AMyCharacter::DropItem(const FInputActionValue& value)
+{
+	bool isPressed = value.Get<bool>();
+
+	if (isPressed && !_items.IsEmpty())
+	{
+		UE_LOG(LogTemp, Log, TEXT("DropItem"));
+		FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
+		int32 dropDistance = 150;
+		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
+
+		_items.Last()->Release(dropPos);
+
+		_items.Pop();
 	}
 }
 

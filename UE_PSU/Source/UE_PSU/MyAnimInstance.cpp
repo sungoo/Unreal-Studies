@@ -42,8 +42,8 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		_speed = myCharacter->GetVelocity().Size();
 		_isfalling = myCharacter->GetMovementComponent()->IsFalling();
-		_hp = myCharacter->_curhp;
-		_isdead = (myCharacter->_curhp <= 0);
+		_hp = myCharacter->GetcurHP();
+		_isdead = (myCharacter->GetcurHP() <= 0);
 		_isattacking = myCharacter->GetAttacked();
 		_vertical = _vertical + (myCharacter->_vertical - _vertical) * DeltaSeconds;
 		_horizontal = _horizontal + (myCharacter->_horizontal - _horizontal) * DeltaSeconds;
