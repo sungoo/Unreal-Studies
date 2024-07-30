@@ -63,22 +63,29 @@ void AMyCharacter::PostInitializeComponents()
 	//��Ÿ�ְ� ���� ��, _isAttacked�� false�� �ٲٱ�
 	_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
 	_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+	_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
 }
 
 void AMyCharacter::Init()
 {
 	_curhp = _maxhp;
+	_isActive = true;
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void AMyCharacter::Disable()
+{
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (!_isActive)
-	{
-		GetMesh()->SetVisibility(false);
-	}
 }
 
 // Called to bind functionality to input
@@ -113,12 +120,18 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 
 	_curhp -= damage;
 
+	if (_animInstance != nullptr && _curhp > 0)
+	{
+		_animInstance->PlayDamagedMontage();
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Damaged by %s : %f   hp : %d"),*DamageCauser->GetName(), damage, _curhp);
 
-	if (_curhp <= 0)
+	if (_animInstance != nullptr && _curhp <= 0)
 	{
 		_curhp = 0;
 		_isActive = false;
+		_animInstance->PlayDeathMontage();
 	}
 	return damage;
 }
@@ -167,13 +180,14 @@ void AMyCharacter::AttackHit()
 		//Todo : Takedamage
 		FDamageEvent damageEvent;
 		hitResult.GetActor()->TakeDamage(_atk, damageEvent, GetController(), this);
-		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, nullptr, this, nullptr);
+		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, GetController(), this, nullptr);
 	}
 
 	DrawDebugSphere(
 		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
 	);
 }
+
 
 void AMyCharacter::Move(const FInputActionValue& value)
 {

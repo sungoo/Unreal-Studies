@@ -31,6 +31,8 @@ protected:
 	virtual void PostInitializeComponents() override;
 
 	void Init();
+	UFUNCTION()
+	void Disable();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -90,7 +92,7 @@ public:
 	int32 _maxhp = 100;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _atk = 10.0f;
+	int32 _atk = 30.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	bool _isActive = true;

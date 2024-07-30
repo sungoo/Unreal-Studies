@@ -50,6 +50,35 @@ DEFINE_FUNCTION(AMyCharacter::execAttackHit)
 }
 // End Class AMyCharacter Function AttackHit
 
+// Begin Class AMyCharacter Function Disable
+struct Z_Construct_UFunction_AMyCharacter_Disable_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "MyCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMyCharacter_Disable_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AMyCharacter, nullptr, "Disable", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyCharacter_Disable_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMyCharacter_Disable_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AMyCharacter_Disable()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMyCharacter_Disable_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMyCharacter::execDisable)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->Disable();
+	P_NATIVE_END;
+}
+// End Class AMyCharacter Function Disable
+
 // Begin Class AMyCharacter Function OnAttackEnded
 struct Z_Construct_UFunction_AMyCharacter_OnAttackEnded_Statics
 {
@@ -108,6 +137,7 @@ void AMyCharacter::StaticRegisterNativesAMyCharacter()
 	UClass* Class = AMyCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "AttackHit", &AMyCharacter::execAttackHit },
+		{ "Disable", &AMyCharacter::execDisable },
 		{ "OnAttackEnded", &AMyCharacter::execOnAttackEnded },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -242,6 +272,7 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AMyCharacter_AttackHit, "AttackHit" }, // 1882118821
+		{ &Z_Construct_UFunction_AMyCharacter_Disable, "Disable" }, // 1871944046
 		{ &Z_Construct_UFunction_AMyCharacter_OnAttackEnded, "OnAttackEnded" }, // 2265123938
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -331,10 +362,10 @@ AMyCharacter::~AMyCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 872719622U) },
+		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 3970297985U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_3414322124(TEXT("/Script/UE_PSU"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_1067565773(TEXT("/Script/UE_PSU"),
 	Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

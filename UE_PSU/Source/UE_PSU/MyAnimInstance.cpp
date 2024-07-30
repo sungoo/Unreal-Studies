@@ -9,12 +9,28 @@
 UMyAnimInstance::UMyAnimInstance()
 {
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> am(
-		TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animation/MyAnimMontage.MyAnimMontage'")
+		TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animation/MyAttackMontage.MyAttackMontage'")
 	);
 	
 	if (am.Succeeded())
 	{
-		_myAnimMontage = am.Object;
+		_myAttackMontage = am.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> dmg(
+		TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animation/MyDamagedMontage.MyDamagedMontage'")
+	);
+	if (dmg.Succeeded())
+	{
+		_myDamagedMontage = dmg.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> death(
+		TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animation/MyDeathMontage.MyDeathMontage'")
+	);
+	if (death.Succeeded())
+	{
+		_myDeathMontage = death.Object;
 	}
 }
 
@@ -26,6 +42,8 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		_speed = myCharacter->GetVelocity().Size();
 		_isfalling = myCharacter->GetMovementComponent()->IsFalling();
+		_hp = myCharacter->_curhp;
+		_isdead = (myCharacter->_curhp <= 0);
 		_isattacking = myCharacter->GetAttacked();
 		_vertical = _vertical + (myCharacter->_vertical - _vertical) * DeltaSeconds;
 		_horizontal = _horizontal + (myCharacter->_horizontal - _horizontal) * DeltaSeconds;
@@ -34,11 +52,11 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 void UMyAnimInstance::PlayAttackMontage()
 {
-	if (!Montage_IsPlaying(_myAnimMontage))
+	if (!Montage_IsPlaying(_myAttackMontage))
 	{
-		Montage_Play(_myAnimMontage);
+		Montage_Play(_myAttackMontage);
 
-		AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
+		//AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
 
 		//���� ��û�� �Ѵ�.
 		//myCharacter->_myDelegate1.BindUObject(this, &UMyAnimInstance::DelegateTest);
@@ -46,15 +64,23 @@ void UMyAnimInstance::PlayAttackMontage()
 	}
 }
 
-void UMyAnimInstance::DelegateTest()
+void UMyAnimInstance::PlayDamagedMontage()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Delegate Test"));
+	if (!Montage_IsPlaying(_myDamagedMontage))
+	{
+		Montage_Play(_myDamagedMontage);
+	}
 }
 
-void UMyAnimInstance::DelegateTest2(int32 hp, int32 mp)
+void UMyAnimInstance::PlayDeathMontage()
 {
-	UE_LOG(LogTemp, Warning, TEXT("HP : %d , MP : %d"), hp, mp);
+	if (!Montage_IsPlaying(_myDeathMontage))
+	{
+		Montage_Play(_myDeathMontage);
+	}
 }
+
+
 
 void UMyAnimInstance::JumpToSection(int32 sectionIndex)
 {
@@ -66,4 +92,10 @@ void UMyAnimInstance::AnimNotify_AttackHit()
 {
 	_attackDelegate.Broadcast();
 	UE_LOG(LogTemp, Warning, TEXT("Attack Hit!"));
+}
+
+void UMyAnimInstance::AnimNotify_DeathEnd()
+{
+	_deathDelegate.Broadcast();
+	UE_LOG(LogTemp, Error, TEXT("Death!"));
 }
