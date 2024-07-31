@@ -30,7 +30,7 @@ protected:
 	void OnMyChararcterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromWeep, const FHitResult& SweepResult);
 
 public:
-	void Release(FVector releasePOS);
+	void Release(FVector releasePOS, FRotator rotator = FRotator::ZeroRotator);
 
 public:	
 	// Called every frame

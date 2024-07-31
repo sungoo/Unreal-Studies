@@ -73,9 +73,10 @@ void AMyItem::OnMyChararcterOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	}
 }
 
-void AMyItem::Release(FVector releasePOS)
+void AMyItem::Release(FVector releasePOS, FRotator rotator)
 {
 	SetActorLocation(releasePOS);
+	SetActorRotation(rotator);
 	Init();
 }
 

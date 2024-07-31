@@ -49,6 +49,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyGameInstance.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyGameInstance.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyGameModeBase.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
@@ -71,6 +77,12 @@
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyStatComponent.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyStatComponent.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
     <None Include="..\..\Source\UE_PSU\UE_PSU.Build.cs">

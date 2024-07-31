@@ -4,6 +4,7 @@
 #include "MyCharacter.h"
 #include "MyAnimInstance.h"
 #include "MyItem.h"
+#include "MyStatComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -62,6 +63,9 @@ AMyCharacter::AMyCharacter()
 	//카메라에 따라선 돌아가지 않게
 	_springArm->bUsePawnControlRotation = true;
 	_camera->bUsePawnControlRotation = false;
+
+	//Stat
+	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 }
 
 // Called when the game starts or when spawned
@@ -84,12 +88,13 @@ void AMyCharacter::PostInitializeComponents()
 		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
 	}
 
+	_statCom->SetLevelAndInit(_level);
 }
 
 void AMyCharacter::Init()
 {
-	_curhp = _maxhp;
-	_atk = _atk_default;
+	_statCom->Reset();
+
 	_isActive = true;
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
@@ -148,18 +153,16 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 	//2. 공격자 이름 출력
 	float damage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 
-	_curhp -= damage;
+	float damaged = _statCom->AddCurHP(-Damage);
 
-	if (_animInstance != nullptr && _curhp > 0)
+	if (_animInstance != nullptr && _statCom->GetCurHP() > 0)
 	{
 		_animInstance->PlayDamagedMontage();
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Damaged by %s : %f   hp : %d"),*DamageCauser->GetName(), damage, _curhp);
-
-	if (_animInstance != nullptr && _curhp <= 0)
+	if (_animInstance != nullptr && _statCom->GetCurHP() <= 0)
 	{
-		_curhp = 0;
+		_statCom->AddCurHP(-999);// _hp = 0
 		_isActive = false;
 		_animInstance->PlayDeathMontage();
 	}
@@ -168,7 +171,7 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 
 int32 AMyCharacter::GetcurHP()
 {
-	return _curhp;
+	return _statCom->GetCurHP();
 }
 
 void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -214,7 +217,7 @@ void AMyCharacter::AttackHit()
 	
 		//Todo : Takedamage
 		FDamageEvent damageEvent;
-		hitResult.GetActor()->TakeDamage(_atk, damageEvent, GetController(), this);
+		hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamage(), damageEvent, GetController(), this);
 		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, GetController(), this, nullptr);
 	}
 
@@ -231,9 +234,9 @@ bool AMyCharacter::ItemGetter(AMyItem* item)
 
 		int32 atkGain = 10 * _items.Num();
 
-		_atk = _atk_default + atkGain;
+		_statCom->AddAttackDamage(atkGain);
 
-		UE_LOG(LogTemp, Warning, TEXT("ATK UP : %d"), _atk);
+		UE_LOG(LogTemp, Warning, TEXT("ATK UP : %d"), _statCom->GetAttackDamage());
 
 		return true;
 	}
@@ -331,7 +334,7 @@ void AMyCharacter::DropItem(const FInputActionValue& value)
 		int32 dropDistance = 150;
 		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
 
-		_items.Last()->Release(dropPos);
+		_items.Last()->Release(dropPos, randomRot);
 
 		_items.Pop();
 	}
