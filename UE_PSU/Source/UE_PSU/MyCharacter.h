@@ -56,6 +56,7 @@ public:
 
 	//Item function
 	bool ItemGetter(class AMyItem* item);
+	void DropAllItems();
 
 protected:
 	void Move(const FInputActionValue& value);
@@ -121,10 +122,7 @@ public:
 
 
 	//Item
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
-	TArray<class AMyItem*> _items;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
-	int32 inventoryValiable_max = 3;
+	class UMyInventoryComponent* _inventoryCom;
 
 
 };

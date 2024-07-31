@@ -3,6 +3,8 @@
 
 #include "MyItem.h"
 #include "MyCharacter.h"
+#include "MyStatComponent.h"
+#include "MyGameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -35,7 +37,7 @@ AMyItem::AMyItem()
 void AMyItem::BeginPlay()
 {
 	Super::BeginPlay();
-	Init();
+	SetItemAndInit();
 }
 
 void AMyItem::PostInitializeComponents()
@@ -47,6 +49,7 @@ void AMyItem::PostInitializeComponents()
 
 void AMyItem::Init()
 {
+	_itemHaver = nullptr;
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = false;
@@ -61,23 +64,63 @@ void AMyItem::Disable()
 
 void AMyItem::OnMyChararcterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromWeep, const FHitResult& SweepResult)
 {
-	auto myCharacter = Cast<AMyCharacter>(OtherActor);
-	if (myCharacter)
+	_itemHaver = Cast<AMyCharacter>(OtherActor);
+	if (_itemHaver)
 	{
-		UE_LOG(LogTemp, Log, TEXT("%s Collision"), *myCharacter->GetName());
-		//충돌시 atk 증가
-		//아이템 사라짐
-		//G를 누르면 획득한 아이템 버리기
-		if(myCharacter->ItemGetter(this))
+		UE_LOG(LogTemp, Log, TEXT("%s Collision"), *_itemHaver->GetName());
+		
+		if (_itemHaver->ItemGetter(this))
+		{
+			ItemEffect(true);
 			Disable();
+		}
 	}
 }
 
 void AMyItem::Release(FVector releasePOS, FRotator rotator)
 {
+	ItemEffect(false);
 	SetActorLocation(releasePOS);
 	SetActorRotation(rotator);
 	Init();
+}
+
+void AMyItem::SetItemAndInit(int32 itemcode)
+{
+	auto myGameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+
+	if (myGameInstance)
+	{
+		FMyItemData* data = myGameInstance->GetItemDataByCode(itemcode);
+
+		_itemType = data->itemType;
+		_statAddValue = data->statAddValue;
+
+		Init();
+	}
+}
+
+void AMyItem::ItemEffect(bool isGain)
+{
+	switch (_itemType)
+	{
+	case TYPE::NONE:
+		break;
+	case TYPE::ATK:
+		if(isGain)
+			_itemHaver->_statCom->AddAttackDamage(_statAddValue);
+		else
+			_itemHaver->_statCom->AddAttackDamage(-_statAddValue);
+		break;
+	case TYPE::HP:
+		if(isGain)
+			_itemHaver->_statCom->AddCurHP(_statAddValue);
+		else
+			_itemHaver->_statCom->AddCurHP(-_statAddValue);
+		break;
+	default:
+		break;
+	}
 }
 
 // Called every frame

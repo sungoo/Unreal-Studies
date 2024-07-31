@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "MyStatComponent.h"
+#include "MyItem.h"
 
 #include "MyGameInstance.generated.h"
 
@@ -22,8 +23,9 @@ public:
 	virtual void Init() override;
 
 	FMyStatData* GetStatDataByLevel(int level);
+	FMyItemData* GetItemDataByCode(int code);
 private:
 	UPROPERTY()
 	class UDataTable* _statTable;
-	
+	class UDataTable* _itemTable;
 };

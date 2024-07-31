@@ -19,6 +19,9 @@
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
     </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
     <None Include="..\..\Config\DefaultEngine.ini">
       <Filter>Config</Filter>
     </None>
@@ -59,6 +62,12 @@
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyGameModeBase.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyInventoryComponent.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyInventoryComponent.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyItem.cpp">

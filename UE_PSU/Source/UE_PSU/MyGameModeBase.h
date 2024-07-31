@@ -20,7 +20,11 @@ public:
 
 	UPROPERTY()
 	UClass* _monsterClass;
-
 	UPROPERTY()
 	TArray<class AMyCharacter*> _monsters;
+
+	UPROPERTY()
+	UClass* _ItemClass;
+	UPROPERTY()
+	TArray<class AMyItem*> _items;
 };

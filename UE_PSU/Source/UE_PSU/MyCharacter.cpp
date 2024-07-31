@@ -5,6 +5,7 @@
 #include "MyAnimInstance.h"
 #include "MyItem.h"
 #include "MyStatComponent.h"
+#include "MyInventoryComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -66,6 +67,8 @@ AMyCharacter::AMyCharacter()
 
 	//Stat
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
+	//Inventory
+	_inventoryCom = CreateDefaultSubobject<UMyInventoryComponent>(TEXT("Inventory"));
 }
 
 // Called when the game starts or when spawned
@@ -165,6 +168,7 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 		_statCom->AddCurHP(-999);// _hp = 0
 		_isActive = false;
 		_animInstance->PlayDeathMontage();
+		DropAllItems();
 	}
 	return damage;
 }
@@ -228,22 +232,18 @@ void AMyCharacter::AttackHit()
 
 bool AMyCharacter::ItemGetter(AMyItem* item)
 {
-	if (_items.Num() < inventoryValiable_max)
+	return _inventoryCom->PutItem(item);
+}
+
+void AMyCharacter::DropAllItems()
+{
+	while (!_inventoryCom->isInventoryEmpty())
 	{
-		_items.Add(item);
+		FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
+		int32 dropDistance = 150;
+		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
 
-		int32 atkGain = 10 * _items.Num();
-
-		_statCom->AddAttackDamage(atkGain);
-
-		UE_LOG(LogTemp, Warning, TEXT("ATK UP : %d"), _statCom->GetAttackDamage());
-
-		return true;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Inventory is Full!!"));
-		return false;
+		_inventoryCom->DropItem(dropPos, randomRot);
 	}
 }
 
@@ -327,16 +327,14 @@ void AMyCharacter::DropItem(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
-	if (isPressed && !_items.IsEmpty())
+	if (isPressed && !_inventoryCom->isInventoryEmpty())
 	{
 		UE_LOG(LogTemp, Log, TEXT("DropItem"));
 		FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
 		int32 dropDistance = 150;
 		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
 
-		_items.Last()->Release(dropPos, randomRot);
-
-		_items.Pop();
+		_inventoryCom->DropItem(dropPos, randomRot);
 	}
 }
 

@@ -17,11 +17,19 @@ struct FHitResult;
 #endif
 #define UE_PSU_MyItem_generated_h
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_21_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FMyItemData_Statics; \
+	UE_PSU_API static class UScriptStruct* StaticStruct(); \
+	typedef FTableRowBase Super;
+
+
+template<> UE_PSU_API UScriptStruct* StaticStruct<struct FMyItemData>();
+
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnMyChararcterOverlap);
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_INCLASS_NO_PURE_DECLS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMyItem(); \
 	friend struct Z_Construct_UClass_AMyItem_Statics; \
@@ -30,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(AMyItem)
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMyItem(AMyItem&&); \
@@ -42,13 +50,13 @@ public: \
 	NO_API virtual ~AMyItem();
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_11_PROLOG
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_GENERATED_BODY \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_34_PROLOG
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_INCLASS_NO_PURE_DECLS \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_INCLASS_NO_PURE_DECLS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h_37_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -58,5 +66,14 @@ template<> UE_PSU_API UClass* StaticClass<class AMyItem>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyItem_h
 
+
+#define FOREACH_ENUM_TYPE(op) \
+	op(TYPE::NONE) \
+	op(TYPE::ATK) \
+	op(TYPE::HP) 
+
+enum class TYPE;
+template<> struct TIsUEnumClass<TYPE> { enum { Value = true }; };
+template<> UE_PSU_API UEnum* StaticEnum<TYPE>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

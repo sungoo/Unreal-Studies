@@ -4,6 +4,7 @@
 #include "MyGameModeBase.h"
 #include "MyPawn.h"
 #include "MyCharacter.h"
+#include "MyItem.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -13,7 +14,6 @@ AMyGameModeBase::AMyGameModeBase()
 	static ConstructorHelpers::FClassFinder<AMyCharacter> player(
 		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyCharacter_BP.MyCharacter_BP_C'")
 	);
-
 	if (player.Succeeded())
 	{
 		DefaultPawnClass = player.Class;
@@ -22,10 +22,17 @@ AMyGameModeBase::AMyGameModeBase()
 	static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
 		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyEnemy_BP.MyEnemy_BP_C'")
 	);
-
 	if (enemy.Succeeded())
 	{
 		_monsterClass = enemy.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<AMyItem> item(
+		TEXT("/Script/CoreUObject.Class'/Script/UE_PSU.MyItem'")
+	);
+	if (item.Succeeded())
+	{
+		_ItemClass = item.Class;
 	}
 }
 
@@ -44,7 +51,16 @@ void AMyGameModeBase::BeginPlay()
 			location,
 			rotator
 		);
+		AMyItem* ammo = GetWorld()->SpawnActor<AMyItem>(
+			_ItemClass,
+			location,
+			rotator
+		);
+
+		ammo->SetItemAndInit(1);
+		monster->ItemGetter(ammo);
 
 		_monsters.Add(monster);
+		_items.Add(ammo);
 	}
 }

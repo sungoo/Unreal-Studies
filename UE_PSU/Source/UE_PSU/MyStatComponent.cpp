@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MyGameInstance.h"
-
 #include "MyStatComponent.h"
+#include "MyGameInstance.h"
 
 // Sets default values for this component's properties
 UMyStatComponent::UMyStatComponent()
@@ -76,6 +75,7 @@ int UMyStatComponent::AddCurHP(float amount)
 
 void UMyStatComponent::AddAttackDamage(float amount)
 {
-	_atk = _atk_default + amount;
+	_atk += amount;
+	UE_LOG(LogTemp, Warning, TEXT("ATK UP : %d"), GetAttackDamage());
 }
 
