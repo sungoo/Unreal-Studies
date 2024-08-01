@@ -6,10 +6,12 @@
 #include "MyItem.h"
 #include "MyStatComponent.h"
 #include "MyInventoryComponent.h"
+#include "MyHpBar.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
@@ -69,6 +71,20 @@ AMyCharacter::AMyCharacter()
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 	//Inventory
 	_inventoryCom = CreateDefaultSubobject<UMyInventoryComponent>(TEXT("Inventory"));
+	//Widget
+	_hpBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
+	_hpBarWidget->SetupAttachment(GetMesh());
+	_hpBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
+	_hpBarWidget->SetRelativeLocation(FVector(0.0f, 0.0f, 230.0f));
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> hpBar(
+		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyHpBar_BP.MyHpBar_BP_C'")
+	);
+
+	if (hpBar.Succeeded())
+	{
+		_hpBarWidget->SetWidgetClass(hpBar.Class);
+	}
 }
 
 // Called when the game starts or when spawned
@@ -92,6 +108,13 @@ void AMyCharacter::PostInitializeComponents()
 	}
 
 	_statCom->SetLevelAndInit(_level);
+
+	_hpBarWidget->InitWidget();
+	auto hpBar = Cast<UMyHpBar>(_hpBarWidget->GetUserWidgetObject());
+	if (hpBar)
+	{
+		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
+	}
 }
 
 void AMyCharacter::Init()
@@ -156,7 +179,7 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 	//2. 공격자 이름 출력
 	float damage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 
-	float damaged = _statCom->AddCurHP(-Damage);
+	float damaged = -_statCom->AddCurHP(-Damage);
 
 	if (_animInstance != nullptr && _statCom->GetCurHP() > 0)
 	{

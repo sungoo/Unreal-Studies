@@ -1,6 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyStatComponent.h"
+
+#include "MyCharacter.h"
+#include "MyHpBar.h"
+
 #include "MyGameInstance.h"
 
 // Sets default values for this component's properties
@@ -38,6 +42,20 @@ void UMyStatComponent::Reset()
 	_atk = _atk_default;
 }
 
+void UMyStatComponent::SetHp(int32 hp)
+{
+	//curHp의 수정은 이 함수를 통해서 이루어진다
+	//이 함수가 호출될 때 마다 hpBar가 바뀐다.
+	_curhp = hp;
+	if (_curhp < 0)
+		_curhp = 0;
+	if (_curhp >= _maxhp)
+		_curhp = _maxhp;
+
+	float ratio = HpRatio();
+	_hpChangedDelegate.Broadcast(ratio);
+}
+
 void UMyStatComponent::SetLevelAndInit(int level)
 {
 	auto myGameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
@@ -60,17 +78,11 @@ int UMyStatComponent::AddCurHP(float amount)
 {
 	int beforeHP = _curhp;
 
-	_curhp += amount;
+	int afterHp = beforeHP + amount;
 
-	if (_curhp < 0)
-	{
-		_curhp = 0;
-	}
+	SetHp(afterHp);
 
-	if (_curhp > _maxhp)
-		_curhp = _maxhp;
-
-	return beforeHP - _curhp;
+	return afterHp - beforeHP;
 }
 
 void UMyStatComponent::AddAttackDamage(float amount)

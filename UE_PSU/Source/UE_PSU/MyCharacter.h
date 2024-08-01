@@ -120,6 +120,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	bool _isActive = true;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* _hpBarWidget;
 
 	//Item
 	class UMyInventoryComponent* _inventoryCom;

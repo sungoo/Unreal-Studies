@@ -123,6 +123,11 @@ void AMyItem::ItemEffect(bool isGain)
 	}
 }
 
+void AMyItem::SetItemHaver(AMyCharacter* who)
+{
+	_itemHaver = who;
+}
+
 // Called every frame
 void AMyItem::Tick(float DeltaTime)
 {

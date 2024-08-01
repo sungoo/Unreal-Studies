@@ -64,6 +64,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyGameModeBase.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyHpBar.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyHpBar.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyInventoryComponent.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>

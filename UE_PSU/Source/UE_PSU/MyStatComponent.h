@@ -21,6 +21,8 @@ struct FMyStatData : public FTableRowBase
 
 };
 
+DECLARE_MULTICAST_DELEGATE_OneParam(HpChanged, float);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UE_PSU_API UMyStatComponent : public UActorComponent
 {
@@ -40,14 +42,18 @@ public:
 
 	void Reset();
 
+	void SetHp(int32 hp);
 	int32 GetCurHP() { return _curhp; }
 	int32 GetAttackDamage() { return _atk; }
+	float HpRatio() const { return _curhp / (float)_maxhp; }
 
 	void SetLevelAndInit(int level);
 
 	int AddCurHP(float amount);
 	void AddAttackDamage(float amount);
 	bool IsDead() { return _curhp <= 0; }
+
+	HpChanged _hpChangedDelegate;
 
 	//Stats
 protected:
@@ -60,4 +66,5 @@ protected:
 	int32 _atk_default = 0;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	int32 _atk = 0;
+
 };

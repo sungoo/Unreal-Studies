@@ -59,6 +59,7 @@ void AMyGameModeBase::BeginPlay()
 
 		ammo->SetItemAndInit(1);
 		monster->ItemGetter(ammo);
+		ammo->SetItemHaver(monster);
 
 		_monsters.Add(monster);
 		_items.Add(ammo);

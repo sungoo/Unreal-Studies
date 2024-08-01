@@ -60,6 +60,8 @@ public:
 
 	void ItemEffect(bool isGain);
 
+	void SetItemHaver(class AMyCharacter* who);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
