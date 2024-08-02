@@ -27,4 +27,17 @@ public:
 	UClass* _ItemClass;
 	UPROPERTY()
 	TArray<class AMyItem*> _items;
+
+	////Button
+	//UPROPERTY()
+	//TSubclassOf<UUserWidget> _jumpUIClass;
+	////UClass* _jumpUIClass;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widget, meta = (AllowPrivateAccess = "true"))
+	//class UWidgetComponent* _jumpButton;
+
+	//UPROPERTY()
+	//TSubclassOf<UUserWidget> _inventoryUIClass;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widget, meta = (AllowPrivateAccess = "true"))
+	//class UWidgetComponent* _inventoryUI;
+
 };

@@ -29,8 +29,6 @@ struct FMyItemData : public FTableRowBase
 	int32 statAddValue;
 };
 
-DECLARE_MULTICAST_DELEGATE(ItemDelegate);
-
 UCLASS()
 class UE_PSU_API AMyItem : public AActor
 {
@@ -75,10 +73,10 @@ public:
 	class AMyCharacter* _itemHaver;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 _itemCode = -1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TYPE _itemType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 _statAddValue = 10;
 
-	//Delegate
-	ItemDelegate ItemGetter;
 };

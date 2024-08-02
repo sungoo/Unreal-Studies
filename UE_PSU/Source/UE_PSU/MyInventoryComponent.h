@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "MyInventoryComponent.generated.h"
 
-
+DECLARE_MULTICAST_DELEGATE_TwoParams(ItemAdded, int32 itemId, int32 itemIndex);
 
 class AMyItem;
 
@@ -19,9 +19,12 @@ public:
 	// Sets default values for this component's properties
 	UMyInventoryComponent();
 
+	//Delegate
+	ItemAdded _itemAddedEvent;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
 
 public:	
 	// Called every frame
@@ -30,12 +33,12 @@ public:
 	bool isInventoryEmpty() { return _items.IsEmpty(); }
 
 	bool PutItem(AMyItem* item);
-	void DropItem(FVector position, FRotator rotation);
+	void DropItem();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
 	TArray<AMyItem*> _items;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
-	int32 inventoryValiable_max = 3;
+	int32 inventoryValiable_max = 9;
 };

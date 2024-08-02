@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Graphics - 바로 가기.lnk" />
     <None Include="..\..\Readme.txt" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -34,24 +35,6 @@
     <Filter Include="Source\UE_PSU">
       <UniqueIdentifier>{2F49F7AE-1833-3AEB-8ABC-EF8396209A4D}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\UE_PSU\MyActor.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyActor.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyAnimInstance.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyAnimInstance.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyCharacter.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyGameInstance.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
@@ -64,42 +47,6 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyGameModeBase.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyHpBar.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyHpBar.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyInventoryComponent.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyInventoryComponent.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyItem.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyItem.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyPawn.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyPawn.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyPlayerController.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE_PSU\MyStatComponent.cpp">
-      <Filter>Source\UE_PSU</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE_PSU\MyStatComponent.h">
-      <Filter>Source\UE_PSU</Filter>
-    </ClInclude>
     <None Include="..\..\Source\UE_PSU\UE_PSU.Build.cs">
       <Filter>Source\UE_PSU</Filter>
     </None>
@@ -108,6 +55,93 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\UE_PSU.h">
       <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\UE_PSU\UI">
+      <UniqueIdentifier>{2767259a-a97c-47d1-8a33-08c3dcfac31d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UE_PSU\Object">
+      <UniqueIdentifier>{d2397438-a7cc-4bf7-a646-5ad484b59044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UE_PSU\Component">
+      <UniqueIdentifier>{cbd59e21-4c3f-404c-ac3a-c281eb94ea6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UE_PSU\Animation">
+      <UniqueIdentifier>{6a84fd0a-d0b3-48c1-a8e1-ad17b55914f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UE_PSU\Controller">
+      <UniqueIdentifier>{191d0a1a-dbed-4603-92c6-9290998bfe6a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\UE_PSU\MyActor.cpp">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyCharacter.cpp">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyItem.cpp">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyPawn.cpp">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyAnimInstance.cpp">
+      <Filter>Source\UE_PSU\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyHpBar.cpp">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyInventoryUI.cpp">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyJumpButton.cpp">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyInventoryComponent.cpp">
+      <Filter>Source\UE_PSU\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyStatComponent.cpp">
+      <Filter>Source\UE_PSU\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UE_PSU\MyPlayerController.cpp">
+      <Filter>Source\UE_PSU\Controller</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\UE_PSU\MyActor.h">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyItem.h">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyPawn.h">
+      <Filter>Source\UE_PSU\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyAnimInstance.h">
+      <Filter>Source\UE_PSU\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyHpBar.h">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyInventoryUI.h">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyJumpButton.h">
+      <Filter>Source\UE_PSU\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyInventoryComponent.h">
+      <Filter>Source\UE_PSU\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyStatComponent.h">
+      <Filter>Source\UE_PSU\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h">
+      <Filter>Source\UE_PSU\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -93,6 +93,7 @@ void AMyItem::SetItemAndInit(int32 itemcode)
 	{
 		FMyItemData* data = myGameInstance->GetItemDataByCode(itemcode);
 
+		_itemCode = data->itemCode;
 		_itemType = data->itemType;
 		_statAddValue = data->statAddValue;
 

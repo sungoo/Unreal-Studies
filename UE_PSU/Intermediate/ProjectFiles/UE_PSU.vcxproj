@@ -253,6 +253,7 @@
     <None Include="..\..\Source\UE_PSU.Target.cs"/>
     <None Include="..\..\Source\UE_PSUEditor.Target.cs"/>
     <None Include="..\..\.vsconfig"/>
+    <None Include="..\..\Graphics - 바로 가기.lnk"/>
     <None Include="..\..\Readme.txt"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini"/>
@@ -287,10 +288,18 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyInventoryComponent.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyInventoryUI.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyInventoryUI.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyItem.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyItem.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyJumpButton.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyJumpButton.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyPawn.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

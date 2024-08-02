@@ -38,7 +38,7 @@ bool UMyInventoryComponent::PutItem(AMyItem* item)
 	if (_items.Num() < inventoryValiable_max)
 	{
 		_items.Add(item);
-
+		_itemAddedEvent.Broadcast(item->_itemCode, _items.Num()-1);
 		return true;
 	}
 	else
@@ -48,9 +48,14 @@ bool UMyInventoryComponent::PutItem(AMyItem* item)
 	}
 }
 
-void UMyInventoryComponent::DropItem(FVector position, FRotator rotation)
+void UMyInventoryComponent::DropItem()
 {
-	_items.Last()->Release(position, rotation);
+	UE_LOG(LogTemp, Log, TEXT("DropItem"));
+	FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
+	int32 dropDistance = 150;
+	FVector dropPos = GetOwner()->GetActorLocation() + randomRot.Vector() * dropDistance;
+
+	_items.Last()->Release(dropPos, randomRot);
 
 	_items.Pop();
 }

@@ -115,16 +115,19 @@ public:
 	int32 _level = 1;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	class UMyStatComponent* _statCom;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	bool _isActive = true;
 
+	//Componenets
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	class UWidgetComponent* _hpBarWidget;
+	class UMyStatComponent* _statCom;
 
-	//Item
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
 	class UMyInventoryComponent* _inventoryCom;
 
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	class UMyInventoryUI* _inventoryWidget;
+	//클래스를 담을 수 있는 자료형
+	//TSubclassOf<class UMyInventoryUI>
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* _hpBarWidget;
 };

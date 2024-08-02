@@ -6,7 +6,9 @@
 #include "MyItem.h"
 #include "MyStatComponent.h"
 #include "MyInventoryComponent.h"
+#include "MyInventoryUI.h"
 #include "MyHpBar.h"
+#include "MyJumpButton.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -71,7 +73,9 @@ AMyCharacter::AMyCharacter()
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 	//Inventory
 	_inventoryCom = CreateDefaultSubobject<UMyInventoryComponent>(TEXT("Inventory"));
-	//Widget
+	
+	/*Widget*/
+	//hpbar
 	_hpBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
 	_hpBarWidget->SetupAttachment(GetMesh());
 	_hpBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
@@ -80,11 +84,16 @@ AMyCharacter::AMyCharacter()
 	static ConstructorHelpers::FClassFinder<UUserWidget> hpBar(
 		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyHpBar_BP.MyHpBar_BP_C'")
 	);
-
 	if (hpBar.Succeeded())
 	{
 		_hpBarWidget->SetWidgetClass(hpBar.Class);
 	}
+
+	static ConstructorHelpers::FClassFinder<UMyInventoryUI> inventory(
+		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyInventoryUI_BP.MyInventoryUI_BP_C'")
+	);
+	if(inventory.Succeeded())
+		_inventoryWidget = CreateWidget<UMyInventoryUI>(GetWorld(), inventory.Class);
 }
 
 // Called when the game starts or when spawned
@@ -93,6 +102,16 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	Init();
+
+	if (_inventoryWidget)
+	{
+		_inventoryWidget->SetDesiredSizeInViewport(FVector2D(1980, 1080));
+		_inventoryWidget->AddToViewport();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Inven Widget did not created"));
+	}
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -114,6 +133,13 @@ void AMyCharacter::PostInitializeComponents()
 	if (hpBar)
 	{
 		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
+	}
+
+	auto invenUI = Cast<UMyInventoryUI>(_inventoryWidget);
+
+	if (invenUI)
+	{
+		_inventoryCom->_itemAddedEvent.AddUObject(invenUI, &UMyInventoryUI::SetItem);
 	}
 }
 
@@ -262,11 +288,7 @@ void AMyCharacter::DropAllItems()
 {
 	while (!_inventoryCom->isInventoryEmpty())
 	{
-		FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
-		int32 dropDistance = 150;
-		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
-
-		_inventoryCom->DropItem(dropPos, randomRot);
+		_inventoryCom->DropItem();
 	}
 }
 
@@ -352,12 +374,7 @@ void AMyCharacter::DropItem(const FInputActionValue& value)
 
 	if (isPressed && !_inventoryCom->isInventoryEmpty())
 	{
-		UE_LOG(LogTemp, Log, TEXT("DropItem"));
-		FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
-		int32 dropDistance = 150;
-		FVector dropPos = GetActorLocation() + randomRot.Vector() * dropDistance;
-
-		_inventoryCom->DropItem(dropPos, randomRot);
+		_inventoryCom->DropItem();
 	}
 }
 
