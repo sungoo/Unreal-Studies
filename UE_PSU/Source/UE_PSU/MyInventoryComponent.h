@@ -32,7 +32,9 @@ public:
 
 	bool isInventoryEmpty() { return _items.IsEmpty(); }
 
+	UFUNCTION()
 	bool PutItem(AMyItem* item);
+	UFUNCTION()
 	void DropItem();
 
 private:

@@ -12,6 +12,10 @@
 /**
  * 
  */
+class AMyUIManager;
+
+#define UIManager Cast<UMyGameInstance>(GetGameInstance())->GetUIManager()
+
 UCLASS()
 class UE_PSU_API UMyGameInstance : public UGameInstance
 {
@@ -24,8 +28,17 @@ public:
 
 	FMyStatData* GetStatDataByLevel(int level);
 	FMyItemData* GetItemDataByCode(int code);
+
+	AMyUIManager* GetUIManager() { return _uiManager; }
 private:
 	UPROPERTY()
 	class UDataTable* _statTable;
+	UPROPERTY()
 	class UDataTable* _itemTable;
+
+	UPROPERTY()
+	AMyUIManager* _uiManager;
+
+	UPROPERTY()
+	bool _bisInitial = false;
 };

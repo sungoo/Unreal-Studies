@@ -2,6 +2,7 @@
 
 
 #include "MyGameInstance.h"
+#include "MyUIManager.h"
 
 UMyGameInstance::UMyGameInstance()
 {
@@ -35,6 +36,10 @@ void UMyGameInstance::Init()
 
 	auto itemdata = GetItemDataByCode(1);
 	UE_LOG(LogTemp, Error, TEXT("Item Type : %d"), (int32)itemdata->itemType);
+
+	FActorSpawnParameters params;
+	params.Name = (TEXT("UIManager"));
+	_uiManager = GetWorld()->SpawnActor<AMyUIManager>(FVector::ZeroVector, FRotator::ZeroRotator, params);
 }
 
 FMyStatData* UMyGameInstance::GetStatDataByLevel(int level)

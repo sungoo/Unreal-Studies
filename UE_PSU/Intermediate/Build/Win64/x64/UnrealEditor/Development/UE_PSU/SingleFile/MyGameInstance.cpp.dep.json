@@ -665,7 +665,9 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\public\\worldpartition\\worldpartitionactordesctype.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\actor.generated.h",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myitem.generated.h",
-            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\mygameinstance.generated.h"
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\mygameinstance.generated.h",
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\myuimanager.h",
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myuimanager.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

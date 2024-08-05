@@ -2,21 +2,32 @@
 
 
 #include "MyCharacter.h"
+
+#include "MyGameInstance.h"
+
+#include "MyUIManager.h"
+#include "MyInventoryUI.h"
+
 #include "MyAnimInstance.h"
+#include "MyPlayerController.h"
 #include "MyItem.h"
 #include "MyStatComponent.h"
 #include "MyInventoryComponent.h"
-#include "MyInventoryUI.h"
 #include "MyHpBar.h"
 #include "MyJumpButton.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+
 #include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Components/Button.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/DamageEvents.h"
@@ -88,12 +99,6 @@ AMyCharacter::AMyCharacter()
 	{
 		_hpBarWidget->SetWidgetClass(hpBar.Class);
 	}
-
-	static ConstructorHelpers::FClassFinder<UMyInventoryUI> inventory(
-		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyInventoryUI_BP.MyInventoryUI_BP_C'")
-	);
-	if(inventory.Succeeded())
-		_inventoryWidget = CreateWidget<UMyInventoryUI>(GetWorld(), inventory.Class);
 }
 
 // Called when the game starts or when spawned
@@ -103,14 +108,12 @@ void AMyCharacter::BeginPlay()
 	
 	Init();
 
-	if (_inventoryWidget)
+	auto invenUI = Cast<UMyGameInstance>(GetGameInstance())->GetUIManager()->GetInvenUI();
+
+	if (invenUI)
 	{
-		_inventoryWidget->SetDesiredSizeInViewport(FVector2D(1980, 1080));
-		_inventoryWidget->AddToViewport();
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Inven Widget did not created"));
+		_inventoryCom->_itemAddedEvent.AddUObject(invenUI, &UMyInventoryUI::SetItem);
+		invenUI->DropBtn->OnClicked.AddDynamic(_inventoryCom, &UMyInventoryComponent::DropItem);
 	}
 }
 
@@ -135,12 +138,7 @@ void AMyCharacter::PostInitializeComponents()
 		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
 	}
 
-	auto invenUI = Cast<UMyInventoryUI>(_inventoryWidget);
-
-	if (invenUI)
-	{
-		_inventoryCom->_itemAddedEvent.AddUObject(invenUI, &UMyInventoryUI::SetItem);
-	}
+	
 }
 
 void AMyCharacter::Init()
@@ -195,6 +193,9 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		
 		// DropItem
 		EnhancedInputComponent->BindAction(_dropItemAction, ETriggerEvent::Started, this, &AMyCharacter::DropItem);
+	
+		// OpenUI
+		EnhancedInputComponent->BindAction(_InventoryAction, ETriggerEvent::Started, this, &AMyCharacter::OpenUI);
 	}
 }
 
@@ -292,6 +293,11 @@ void AMyCharacter::DropAllItems()
 	}
 }
 
+void AMyCharacter::TurnOffInvenUI()
+{
+	UIManager->GetInvenUI()->SetVisibility(ESlateVisibility::Hidden);
+}
+
 void AMyCharacter::Move(const FInputActionValue& value)
 {
 	FVector2D MovementVector = value.Get<FVector2D>();
@@ -372,9 +378,35 @@ void AMyCharacter::DropItem(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
-	if (isPressed && !_inventoryCom->isInventoryEmpty())
+	if (isPressed)
 	{
 		_inventoryCom->DropItem();
+	}
+}
+
+void AMyCharacter::OpenUI(const FInputActionValue& value)
+{
+	bool isPressed = value.Get<bool>();
+
+	if (isPressed)
+	{
+		if (GetController())
+		{
+			auto pController = Cast<AMyPlayerController>(GetController());
+
+			if (!InventoryOpen)
+			{
+				InventoryOpen = true;
+				//UIManager->GetInvenUI()->SetVisibility(ESlateVisibility::Visible);
+				pController->ShowUI();
+			}
+			else
+			{
+				InventoryOpen = false;
+				//UIManager->GetInvenUI()->SetVisibility(ESlateVisibility::Hidden);
+				pController->HideUI();
+			}
+		}
 	}
 }
 

@@ -86,12 +86,20 @@ struct Z_Construct_UClass_UMyInventoryUI_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
+		{ "Comment", "/**\n \xed\x95\xb4\xec\x95\xbc\xed\x95\xa0 \xec\x9d\xbc : \xeb\xaa\xac\xec\x8a\xa4\xed\x84\xb0\xec\x97\x90\xea\xb2\x8c\xec\x84\xa0 UI\xeb\xa5\xbc \xeb\xb9\xbc\xeb\xb2\x84\xeb\xa6\xac\xec\x9e\x90\n */" },
 #endif
 		{ "IncludePath", "MyInventoryUI.h" },
 		{ "ModuleRelativePath", "MyInventoryUI.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xed\x95\xb4\xec\x95\xbc\xed\x95\xa0 \xec\x9d\xbc : \xeb\xaa\xac\xec\x8a\xa4\xed\x84\xb0\xec\x97\x90\xea\xb2\x8c\xec\x84\xa0 UI\xeb\xa5\xbc \xeb\xb9\xbc\xeb\xb2\x84\xeb\xa6\xac\xec\x9e\x90" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SlotGrid_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyInventoryUI.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DropBtn_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyInventoryUI.h" },
@@ -116,6 +124,7 @@ struct Z_Construct_UClass_UMyInventoryUI_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SlotGrid;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DropBtn;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__slotBtns_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp__slotBtns;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__slotBtnImages_Inner;
@@ -134,6 +143,7 @@ struct Z_Construct_UClass_UMyInventoryUI_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp_SlotGrid = { "SlotGrid", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyInventoryUI, SlotGrid), Z_Construct_UClass_UUniformGridPanel_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SlotGrid_MetaData), NewProp_SlotGrid_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp_DropBtn = { "DropBtn", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyInventoryUI, DropBtn), Z_Construct_UClass_UButton_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DropBtn_MetaData), NewProp_DropBtn_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtns_Inner = { "_slotBtns", nullptr, (EPropertyFlags)0x00000000000a0008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UButton_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtns = { "_slotBtns", nullptr, (EPropertyFlags)0x0040008000020009, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyInventoryUI, _slotBtns), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__slotBtns_MetaData), NewProp__slotBtns_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtnImages_Inner = { "_slotBtnImages", nullptr, (EPropertyFlags)0x00000000000a0008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(0, nullptr) };
@@ -142,6 +152,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__default = { "_default", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyInventoryUI, _default), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__default_MetaData), NewProp__default_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyInventoryUI_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyInventoryUI_Statics::NewProp_SlotGrid,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyInventoryUI_Statics::NewProp_DropBtn,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtns_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtns,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyInventoryUI_Statics::NewProp__slotBtnImages_Inner,
@@ -191,10 +202,10 @@ UMyInventoryUI::~UMyInventoryUI() {}
 struct Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyInventoryUI_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UMyInventoryUI, UMyInventoryUI::StaticClass, TEXT("UMyInventoryUI"), &Z_Registration_Info_UClass_UMyInventoryUI, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyInventoryUI), 3345269642U) },
+		{ Z_Construct_UClass_UMyInventoryUI, UMyInventoryUI::StaticClass, TEXT("UMyInventoryUI"), &Z_Registration_Info_UClass_UMyInventoryUI, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyInventoryUI), 1566839633U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyInventoryUI_h_2436880528(TEXT("/Script/UE_PSU"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyInventoryUI_h_914068608(TEXT("/Script/UE_PSU"),
 	Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyInventoryUI_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyInventoryUI_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

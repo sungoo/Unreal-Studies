@@ -2,6 +2,12 @@
 
 
 #include "MyGameModeBase.h"
+
+#include "MyGameInstance.h"
+
+#include "MyUIManager.h"
+#include "MyInventoryUI.h"
+
 #include "MyPawn.h"
 #include "MyCharacter.h"
 #include "MyItem.h"
@@ -21,13 +27,13 @@ AMyGameModeBase::AMyGameModeBase()
 		DefaultPawnClass = player.Class;
 	}
 
-	static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
+	/*static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
 		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyEnemy_BP.MyEnemy_BP_C'")
 	);
 	if (enemy.Succeeded())
 	{
 		_monsterClass = enemy.Class;
-	}
+	}*/
 
 	static ConstructorHelpers::FClassFinder<AMyItem> item(
 		TEXT("/Script/CoreUObject.Class'/Script/UE_PSU.MyItem'")
@@ -36,28 +42,6 @@ AMyGameModeBase::AMyGameModeBase()
 	{
 		_ItemClass = item.Class;
 	}
-
-	/*_jumpButton = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
-	_jumpButton->SetupAttachment(RootComponent);
-	_jumpButton->SetWidgetSpace(EWidgetSpace::Screen);
-	static ConstructorHelpers::FClassFinder<UUserWidget> jumpButton(
-		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyJumpButton_BP.MyJumpButton_BP_C'")
-	);
-	if (jumpButton.Succeeded())
-	{
-		_jumpUIClass = jumpButton.Class;
-	}
-
-	_inventoryUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("Inventory"));
-	_inventoryUI->SetupAttachment(RootComponent);
-	_inventoryUI->SetWidgetSpace(EWidgetSpace::Screen);
-	static ConstructorHelpers::FClassFinder<UUserWidget> inventory(
-		TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyInventoryUI_BP.MyInventoryUI_BP_C'")
-	);
-	if (inventory.Succeeded())
-	{
-		_inventoryUIClass = inventory.Class;
-	}*/
 }
 
 void AMyGameModeBase::BeginPlay()
@@ -83,8 +67,11 @@ void AMyGameModeBase::BeginPlay()
 			rotator
 		);
 
-		//monster->ItemGetter(ammo);
-		//ammo->SetItemHaver(monster);
+		//Todo : InvenWidget
+		monster->TurnOffInvenUI();
+
+		monster->ItemGetter(ammo);
+		ammo->SetItemHaver(monster);
 
 		_monsters.Add(monster);
 		_items.Add(ammo);

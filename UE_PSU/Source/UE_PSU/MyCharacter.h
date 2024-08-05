@@ -11,6 +11,7 @@
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
+class AMyUIManager;
 struct FInputActionValue;
 
 DECLARE_DELEGATE(DelegateTest1);
@@ -58,6 +59,8 @@ public:
 	bool ItemGetter(class AMyItem* item);
 	void DropAllItems();
 
+	void TurnOffInvenUI();
+
 protected:
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
@@ -65,6 +68,7 @@ protected:
 	void AttackA(const FInputActionValue& value);
 	void Focus(const FInputActionValue& value);
 	void DropItem(const FInputActionValue& value);
+	void OpenUI(const FInputActionValue& value);
 
 public:
 
@@ -87,6 +91,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* _dropItemAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _InventoryAction;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	bool isAttacked = false;
@@ -124,8 +131,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
 	class UMyInventoryComponent* _inventoryCom;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
-	class UMyInventoryUI* _inventoryWidget;
+	UPROPERTY()
+	bool InventoryOpen = false;
+
 	//클래스를 담을 수 있는 자료형
 	//TSubclassOf<class UMyInventoryUI>
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))

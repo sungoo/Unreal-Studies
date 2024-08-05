@@ -16,3 +16,19 @@ void AMyPlayerController::BeginPlay()
 		subSystem->AddMappingContext(_inputMappingContext, 0);
 	}
 }
+
+void AMyPlayerController::ShowUI()
+{
+	FInputModeGameAndUI InputMode;
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	SetInputMode(InputMode);
+	bShowMouseCursor = true;
+}
+
+void AMyPlayerController::HideUI()
+{
+	FInputModeGameAndUI InputMode;
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockOnCapture);
+	SetInputMode(InputMode);
+	bShowMouseCursor = false;
+}

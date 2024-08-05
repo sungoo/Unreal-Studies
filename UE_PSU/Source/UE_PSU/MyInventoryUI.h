@@ -23,6 +23,11 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UUniformGridPanel* SlotGrid;
 
+public:
+	UPROPERTY(meta = (BindWidget))
+	class UButton* DropBtn;
+
+private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<class UButton*> _slotBtns;
 	UPROPERTY(VisibleAnywhere)

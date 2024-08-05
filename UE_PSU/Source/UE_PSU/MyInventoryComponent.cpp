@@ -51,12 +51,17 @@ bool UMyInventoryComponent::PutItem(AMyItem* item)
 void UMyInventoryComponent::DropItem()
 {
 	UE_LOG(LogTemp, Log, TEXT("DropItem"));
+	if (_items.IsEmpty())
+		return;
+
 	FRotator randomRot = FRotator(0, FMath::RandRange(0, 360), 0);
 	int32 dropDistance = 150;
 	FVector dropPos = GetOwner()->GetActorLocation() + randomRot.Vector() * dropDistance;
-
+	int32 itemSize = _items.Num();
 	_items.Last()->Release(dropPos, randomRot);
 
 	_items.Pop();
+
+	_itemAddedEvent.Broadcast(-1, itemSize - 1);
 }
 
