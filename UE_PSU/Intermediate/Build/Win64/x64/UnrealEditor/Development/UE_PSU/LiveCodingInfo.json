@@ -1,5 +1,39 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.UE_PSU.cpp.obj": [
+			"MyActor.gen.cpp.obj",
+			"MyAIController.gen.cpp.obj",
+			"MyAnimInstance.gen.cpp.obj",
+			"MyCharacter.gen.cpp.obj",
+			"MyGameInstance.gen.cpp.obj",
+			"MyGameModeBase.gen.cpp.obj",
+			"MyHpBar.gen.cpp.obj",
+			"MyInventoryComponent.gen.cpp.obj",
+			"MyInventoryUI.gen.cpp.obj",
+			"MyItem.gen.cpp.obj",
+			"MyJumpButton.gen.cpp.obj",
+			"MyPawn.gen.cpp.obj",
+			"MyPlayerController.gen.cpp.obj",
+			"MyStatComponent.gen.cpp.obj",
+			"MyUIManager.gen.cpp.obj",
+			"UE_PSU.init.gen.cpp.obj",
+			"MyActor.cpp.obj",
+			"MyAIController.cpp.obj",
+			"MyAnimInstance.cpp.obj",
+			"MyCharacter.cpp.obj",
+			"MyGameInstance.cpp.obj",
+			"MyGameModeBase.cpp.obj",
+			"MyHpBar.cpp.obj",
+			"MyInventoryComponent.cpp.obj",
+			"MyInventoryUI.cpp.obj",
+			"MyItem.cpp.obj",
+			"MyJumpButton.cpp.obj",
+			"MyPawn.cpp.obj",
+			"MyPlayerController.cpp.obj",
+			"MyStatComponent.cpp.obj",
+			"MyUIManager.cpp.obj",
+			"UE_PSU.cpp.obj"
+		]
 	}
 }

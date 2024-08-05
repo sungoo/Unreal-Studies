@@ -16,7 +16,8 @@ AMyUIManager::AMyUIManager()
 	);
 	if (inventory.Succeeded())
 	{
-		_inventoryWidget = CreateWidget<UMyInventoryUI>(GetWorld(), inventory.Class);
+		auto temp = inventory.Class;
+		//_inventoryWidget = CreateWidget<UMyInventoryUI>(GetWorld(), inventory.Class);
 	}
 }
 

@@ -41,6 +41,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyActor.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyAIController.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyAIController.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyAnimInstance.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>

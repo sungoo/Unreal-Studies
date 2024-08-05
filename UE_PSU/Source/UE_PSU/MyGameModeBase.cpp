@@ -12,6 +12,9 @@
 #include "MyCharacter.h"
 #include "MyItem.h"
 #include "MyJumpButton.h"
+
+#include "MyAIController.h"
+
 #include "Components/WidgetComponent.h"
 
 AMyGameModeBase::AMyGameModeBase()
@@ -27,13 +30,13 @@ AMyGameModeBase::AMyGameModeBase()
 		DefaultPawnClass = player.Class;
 	}
 
-	/*static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
+	static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
 		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyEnemy_BP.MyEnemy_BP_C'")
 	);
 	if (enemy.Succeeded())
 	{
 		_monsterClass = enemy.Class;
-	}*/
+	}
 
 	static ConstructorHelpers::FClassFinder<AMyItem> item(
 		TEXT("/Script/CoreUObject.Class'/Script/UE_PSU.MyItem'")
@@ -60,20 +63,22 @@ void AMyGameModeBase::BeginPlay()
 			rotator
 		);
 		ammo->SetItemAndInit(1);
-
-		AMyCharacter* monster = GetWorld()->SpawnActor<AMyCharacter>(
+		//TODO MyMonster.cpp 만들기
+		/*AMyCharacter* monster = GetWorld()->SpawnActor<AMyCharacter>(
 			_monsterClass,
 			location,
 			rotator
-		);
+		);*/
+
+		//monster->AIControllerClass = AMyAIController::StaticClass();
 
 		//Todo : InvenWidget
-		monster->TurnOffInvenUI();
+		//monster->TurnOffInvenUI();
 
-		monster->ItemGetter(ammo);
-		ammo->SetItemHaver(monster);
+		//monster->ItemGetter(ammo);
+		//ammo->SetItemHaver(monster);
 
-		_monsters.Add(monster);
+		//_monsters.Add(monster);
 		_items.Add(ammo);
 	}
 
