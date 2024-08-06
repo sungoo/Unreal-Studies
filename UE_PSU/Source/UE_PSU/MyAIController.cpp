@@ -5,9 +5,27 @@
 
 #include "NavigationSystem.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 AMyAIController::AMyAIController()
 {
+	static ConstructorHelpers::FObjectFinder<UBlackboardData> bd(
+		TEXT("/Script/AIModule.BlackboardData'/Game/BluePrint/AI/MyBlackboardData.MyBlackboardData'")
+	);
+	if (bd.Succeeded())
+	{
+		_bData = bd.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UBehaviorTree> bt(
+		TEXT("/Script/AIModule.BehaviorTree'/Game/BluePrint/AI/MyBehaviorTree.MyBehaviorTree'")
+	);
+	if (bt.Succeeded())
+	{
+		_bTree = bt.Object;
+	}
 }
 
 void AMyAIController::BeginPlay()
@@ -21,7 +39,16 @@ void AMyAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	GetWorld()->GetTimerManager().SetTimer(_timerHandle, this, &AMyAIController::RandMove, 0.3f, true);
+	//GetWorld()->GetTimerManager().SetTimer(_timerHandle, this, &AMyAIController::RandMove, 0.3f, true);
+	UBlackboardComponent* temp = Blackboard;
+	if (UseBlackboard(_bData, temp))
+	{
+		if (RunBehaviorTree(_bTree))
+		{
+			UE_LOG(LogTemp, Display, TEXT("behavior Tree"));
+		}
+	}
+
 }
 
 void AMyAIController::OnUnPossess()

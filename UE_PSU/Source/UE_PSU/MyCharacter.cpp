@@ -15,6 +15,7 @@
 #include "MyInventoryComponent.h"
 #include "MyHpBar.h"
 #include "MyJumpButton.h"
+#include "MyAIController.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -106,7 +107,10 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	_aiController = Cast<AMyAIController>(GetController());
+
 	Init();
+
 
 	auto invenUI = Cast<UMyGameInstance>(GetGameInstance())->GetUIManager()->GetInvenUI();
 
@@ -149,6 +153,11 @@ void AMyCharacter::Init()
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
+
+	if (_aiController && GetController() == nullptr)
+	{
+		_aiController->Possess(this);
+	}
 }
 
 void AMyCharacter::Disable()
@@ -156,6 +165,9 @@ void AMyCharacter::Disable()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	PrimaryActorTick.bCanEverTick = false;
+
+	GetController()->UnPossess();
+	UnPossessed();
 }
 
 // Called every frame
@@ -232,6 +244,8 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	UE_LOG(LogTemp, Log, TEXT("Attack Ended!"));
 	isAttacked = false;
+
+	_attackEndedDelegate.Broadcast();
 }
 
 void AMyCharacter::AttackHit()
@@ -407,6 +421,20 @@ void AMyCharacter::OpenUI(const FInputActionValue& value)
 				pController->HideUI();
 			}
 		}
+	}
+}
+
+void AMyCharacter::Attack_AI()
+{
+	if (isAttacked == false && _animInstance != nullptr)
+	{
+		isAttacked = true;
+		_animInstance->PlayAttackMontage();
+
+		_curAttackSection %= 3;
+		_curAttackSection++;
+
+		_animInstance->JumpToSection(_curAttackSection);
 	}
 }
 

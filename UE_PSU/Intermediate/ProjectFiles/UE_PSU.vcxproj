@@ -260,6 +260,22 @@
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
     <None Include="..\..\Config\DefaultInput.ini"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Deco_CanAttack.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Deco_CanAttack.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Service_FindTarget.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Service_FindTarget.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Task_Attack.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Task_Attack.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Task_FindRandomPos.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Task_FindRandomPos.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyActor.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -276,6 +292,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyEnemy.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyEnemy.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyGameInstance.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -308,6 +328,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyPawn.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyPlayer.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyPlayer.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyPlayerController.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

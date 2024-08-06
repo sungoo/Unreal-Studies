@@ -25,4 +25,10 @@ public:
 	void RandMove();
 private:
 	FTimerHandle _timerHandle;
+
+	UPROPERTY()
+	class UBlackboardData* _bData;
+
+	UPROPERTY()
+	class UBehaviorTree* _bTree;
 };

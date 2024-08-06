@@ -17,6 +17,7 @@ struct FInputActionValue;
 DECLARE_DELEGATE(DelegateTest1);
 DECLARE_DELEGATE_OneParam(DelegateTestOneParam, int32);
 DECLARE_DELEGATE_TwoParams(DelegateTestTwoParam, int32, int32);
+DECLARE_MULTICAST_DELEGATE(Delegate_AttackEnded);
 
 UCLASS()
 class UE_PSU_API AMyCharacter : public ACharacter
@@ -60,6 +61,11 @@ public:
 	void DropAllItems();
 
 	void TurnOffInvenUI();
+
+	UFUNCTION() 
+	void Attack_AI();
+
+	Delegate_AttackEnded _attackEndedDelegate;
 
 protected:
 	void Move(const FInputActionValue& value);
@@ -138,4 +144,7 @@ public:
 	//TSubclassOf<class UMyInventoryUI>
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
 	class UWidgetComponent* _hpBarWidget;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
+	class AMyAIController* _aiController;
 };
