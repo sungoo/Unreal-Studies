@@ -4,23 +4,24 @@
 #include "MyPlayer.h"
 
 #include "MyGameInstance.h"
-#include "MyUIManager.h"
-#include "MyInventoryUI.h"
-#include "MyAnimInstance.h"
-#include "MyPlayerController.h"
 #include "MyInventoryComponent.h"
-
+//Animation
+#include "MyAnimInstance.h"
+//TPS
 #include "Camera/CameraComponent.h"
-
+#include "GameFramework/SpringArmComponent.h"
+//Input
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-
-#include "Components/CapsuleComponent.h"
+//UI
+#include "MyUIManager.h"
+#include "MyInventoryUI.h"
 #include "Components/WidgetComponent.h"
 #include "Components/Button.h"
 
-#include "GameFramework/SpringArmComponent.h"
+#include "MyPlayerController.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 

@@ -21,8 +21,6 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void PostInitializeComponents() override;
 
-	virtual void Init() override;
-	virtual void Disable() override;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -30,6 +28,5 @@ public:
 	UFUNCTION()
 	void Attack_AI();
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
-	class AMyAIController* _aiController;
+	
 };

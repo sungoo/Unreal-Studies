@@ -37,10 +37,10 @@ protected:
 	virtual void Init();
 	UFUNCTION()
 	virtual void Disable();
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+	void Unpossess();
+public:	
 	//Attack function
 	UFUNCTION()
 	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
@@ -75,10 +75,6 @@ public:
 	//Animation
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	class UMyAnimInstance* _animInstance;
-	
-	//Stats
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _level = 1;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	bool _isActive = true;
@@ -95,5 +91,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
 	class UWidgetComponent* _hpBarWidget;
 
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
+	class AAIController* _aiController;
 };

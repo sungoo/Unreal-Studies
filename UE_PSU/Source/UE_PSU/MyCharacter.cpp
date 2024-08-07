@@ -91,9 +91,10 @@ void AMyCharacter::PostInitializeComponents()
 		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
 		_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
+		_statCom->_deathDelegate.AddUObject(this, &AMyCharacter::Unpossess);
 	}
 
-	_statCom->SetLevelAndInit(_level);
+	_statCom->SetLevelAndInit(1);
 
 	_hpBarWidget->InitWidget();
 	auto hpBar = Cast<UMyHpBar>(_hpBarWidget->GetUserWidgetObject());
@@ -111,6 +112,13 @@ void AMyCharacter::Init()
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
+
+	if (_aiController && GetController() == nullptr)
+	{
+		auto ai_Controller = Cast<AMyAIController>(_aiController);
+		if(ai_Controller)
+			ai_Controller->Possess(this);
+	}
 }
 
 void AMyCharacter::Disable()
@@ -118,12 +126,17 @@ void AMyCharacter::Disable()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	PrimaryActorTick.bCanEverTick = false;
+
+	Unpossess();
 }
 
-// Called every frame
-void AMyCharacter::Tick(float DeltaTime)
+void AMyCharacter::Unpossess()
 {
-	Super::Tick(DeltaTime);
+	if (GetController() == nullptr)
+		return;
+
+	GetController()->UnPossess();
+	UnPossessed();
 }
 
 float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)

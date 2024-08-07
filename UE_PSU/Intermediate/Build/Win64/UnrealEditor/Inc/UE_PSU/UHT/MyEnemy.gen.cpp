@@ -10,7 +10,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeMyEnemy() {}
 
 // Begin Cross Module References
-UE_PSU_API UClass* Z_Construct_UClass_AMyAIController_NoRegister();
 UE_PSU_API UClass* Z_Construct_UClass_AMyCharacter();
 UE_PSU_API UClass* Z_Construct_UClass_AMyEnemy();
 UE_PSU_API UClass* Z_Construct_UClass_AMyEnemy_NoRegister();
@@ -71,14 +70,7 @@ struct Z_Construct_UClass_AMyEnemy_Statics
 		{ "IncludePath", "MyEnemy.h" },
 		{ "ModuleRelativePath", "MyEnemy.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__aiController_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "AI" },
-		{ "ModuleRelativePath", "MyEnemy.h" },
-	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__aiController;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AMyEnemy_Attack_AI, "Attack_AI" }, // 1291168880
@@ -89,11 +81,6 @@ struct Z_Construct_UClass_AMyEnemy_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyEnemy_Statics::NewProp__aiController = { "_aiController", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyEnemy, _aiController), Z_Construct_UClass_AMyAIController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__aiController_MetaData), NewProp__aiController_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyEnemy_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEnemy_Statics::NewProp__aiController,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyEnemy_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyEnemy_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_AMyCharacter,
 	(UObject* (*)())Z_Construct_UPackage__Script_UE_PSU,
@@ -105,11 +92,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AMyEnemy_Statics::Class
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	FuncInfo,
-	Z_Construct_UClass_AMyEnemy_Statics::PropPointers,
+	nullptr,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
-	UE_ARRAY_COUNT(Z_Construct_UClass_AMyEnemy_Statics::PropPointers),
+	0,
 	0,
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AMyEnemy_Statics::Class_MetaDataParams), Z_Construct_UClass_AMyEnemy_Statics::Class_MetaDataParams)
@@ -134,10 +121,10 @@ AMyEnemy::~AMyEnemy() {}
 struct Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEnemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyEnemy, AMyEnemy::StaticClass, TEXT("AMyEnemy"), &Z_Registration_Info_UClass_AMyEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyEnemy), 985014695U) },
+		{ Z_Construct_UClass_AMyEnemy, AMyEnemy::StaticClass, TEXT("AMyEnemy"), &Z_Registration_Info_UClass_AMyEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyEnemy), 891393453U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEnemy_h_1496797552(TEXT("/Script/UE_PSU"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEnemy_h_2747926392(TEXT("/Script/UE_PSU"),
 	Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEnemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

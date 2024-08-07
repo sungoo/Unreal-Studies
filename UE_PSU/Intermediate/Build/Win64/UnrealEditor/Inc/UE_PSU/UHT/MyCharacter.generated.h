@@ -18,6 +18,7 @@ class UAnimMontage;
 #define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyCharacter_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execAttackHit); \
 	DECLARE_FUNCTION(execOnAttackEnded); \
+	DECLARE_FUNCTION(execUnpossess); \
 	DECLARE_FUNCTION(execDisable);
 
 

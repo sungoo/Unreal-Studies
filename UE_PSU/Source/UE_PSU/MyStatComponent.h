@@ -7,6 +7,7 @@
 #include "Engine/Datatable.h"
 #include "MyStatComponent.generated.h"
 
+
 USTRUCT()
 struct FMyStatData : public FTableRowBase
 {
@@ -22,6 +23,7 @@ struct FMyStatData : public FTableRowBase
 };
 
 DECLARE_MULTICAST_DELEGATE_OneParam(HpChanged, float);
+DECLARE_MULTICAST_DELEGATE(DeathDelegate);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UE_PSU_API UMyStatComponent : public UActorComponent
@@ -54,16 +56,17 @@ public:
 	bool IsDead() { return _curhp <= 0; }
 
 	HpChanged _hpChangedDelegate;
+	DeathDelegate _deathDelegate;
 
 	//Stats
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _curhp = 0;
+	int32 _curhp = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _maxhp = 0;
+	int32 _maxhp = 100;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	int32 _atk_default = 0;
+	int32 _atk_default = 10;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	int32 _atk = 0;
 
