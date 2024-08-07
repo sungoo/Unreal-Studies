@@ -8,8 +8,9 @@
 #include "MyUIManager.h"
 #include "MyInventoryUI.h"
 
-#include "MyPawn.h"
 #include "MyCharacter.h"
+#include "MyPlayer.h"
+#include "MyEnemy.h"
 #include "MyItem.h"
 #include "MyJumpButton.h"
 
@@ -20,10 +21,10 @@
 AMyGameModeBase::AMyGameModeBase()
 {
 	//Pawn�� ���赵�� �޴´�.
-	DefaultPawnClass = AMyPawn::StaticClass();
+	DefaultPawnClass = AMyPlayer::StaticClass();
 
-	static ConstructorHelpers::FClassFinder<AMyCharacter> player(
-		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyCharacter_BP.MyCharacter_BP_C'")
+	static ConstructorHelpers::FClassFinder<AMyPlayer> player(
+		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyGunAttacker_BP.MyGunAttacker_BP_C'")
 	);
 	if (player.Succeeded())
 	{
@@ -31,7 +32,7 @@ AMyGameModeBase::AMyGameModeBase()
 	}
 
 	static ConstructorHelpers::FClassFinder<AMyCharacter> enemy(
-		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyEnemy_BP.MyEnemy_BP_C'")
+		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/Player/MyNewEnemy_BP.MyNewEnemy_BP_C'")
 	);
 	if (enemy.Succeeded())
 	{
@@ -63,40 +64,19 @@ void AMyGameModeBase::BeginPlay()
 			rotator
 		);
 		ammo->SetItemAndInit(1);
-		//TODO MyMonster.cpp 만들기
-		/*AMyCharacter* monster = GetWorld()->SpawnActor<AMyCharacter>(
+
+		location.Y += 2000.0f * i - 2000.0f;
+
+		AMyCharacter* monster = GetWorld()->SpawnActor<AMyCharacter>(
 			_monsterClass,
 			location,
 			rotator
-		);*/
+		);
 
-		//monster->AIControllerClass = AMyAIController::StaticClass();
+		monster->AIControllerClass = AMyAIController::StaticClass();
 
-		//Todo : InvenWidget
-		//monster->TurnOffInvenUI();
-
-		//monster->ItemGetter(ammo);
-		//ammo->SetItemHaver(monster);
-
-		//_monsters.Add(monster);
+		_monsters.Add(monster);
 		_items.Add(ammo);
 	}
-
-
-	/*if (_jumpButton)
-	{
-		_jumpButton->SetWidgetClass(_jumpUIClass);
-		_jumpButton->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-		_jumpButton->SetDrawSize(FVector2D(1920, 1080));
-		_jumpButton->SetVisibility(true);
-		
-	}
-	if (_inventoryUI)
-	{
-		_inventoryUI->SetWidgetClass(_inventoryUIClass);
-		_inventoryUI->SetRelativeLocation(FVector(0, 0, 0));
-		_inventoryUI->SetDrawSize(FVector2D(1920, 1080));
-		_inventoryUI->SetVisibility(true);
-	}*/
 
 }

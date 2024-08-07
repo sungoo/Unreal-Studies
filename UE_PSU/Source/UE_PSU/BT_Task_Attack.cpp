@@ -3,7 +3,7 @@
 
 #include "BT_Task_Attack.h"
 
-#include "MyCharacter.h"
+#include "MyEnemy.h"
 
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardData.h"
@@ -20,7 +20,7 @@ EBTNodeResult::Type UBT_Task_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 {
 	EBTNodeResult::Type result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	auto currentCharacter = Cast<AMyCharacter>(OwnerComp.GetAIOwner()->GetCharacter());
+	auto currentCharacter = Cast<AMyEnemy>(OwnerComp.GetAIOwner()->GetCharacter());
 
 	if (currentCharacter == nullptr)
 		return EBTNodeResult::Type::Failed;

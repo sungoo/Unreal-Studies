@@ -24,8 +24,6 @@ public: \
 
 
 #define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyPlayer_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AMyPlayer(); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMyPlayer(AMyPlayer&&); \

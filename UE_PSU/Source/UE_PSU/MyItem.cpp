@@ -2,6 +2,7 @@
 
 
 #include "MyItem.h"
+#include "MyPlayer.h"
 #include "MyCharacter.h"
 #include "MyStatComponent.h"
 #include "MyGameInstance.h"

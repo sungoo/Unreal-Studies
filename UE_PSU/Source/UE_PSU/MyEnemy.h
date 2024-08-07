@@ -13,5 +13,23 @@ UCLASS()
 class UE_PSU_API AMyEnemy : public AMyCharacter
 {
 	GENERATED_BODY()
+
+public:
+	AMyEnemy();
 	
+protected:
+	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
+
+	virtual void Init() override;
+	virtual void Disable() override;
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void Attack_AI();
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
+	class AMyAIController* _aiController;
 };

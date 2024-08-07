@@ -46,6 +46,7 @@
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\InputCore\UnrealEditor-InputCore.lib"
 "..\Plugins\EnhancedInput\Intermediate\Build\Win64\x64\UnrealEditor\Development\EnhancedInput\UnrealEditor-EnhancedInput.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\NavigationSystem\UnrealEditor-NavigationSystem.lib"
+"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\GameplayTasks\UnrealEditor-GameplayTasks.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
