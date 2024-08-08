@@ -40,10 +40,22 @@
     <ClInclude Include="..\..\Source\UE_PSU\BT_Deco_CanAttack.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Deco_TooFar.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Deco_TooFar.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\BT_Service_FindTarget.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\BT_Service_FindTarget.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Service_SpawnSetting.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Service_SpawnSetting.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\BT_Task_Attack.cpp">

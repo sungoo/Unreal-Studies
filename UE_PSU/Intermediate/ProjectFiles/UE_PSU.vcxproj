@@ -263,10 +263,18 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\BT_Deco_CanAttack.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Deco_TooFar.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Deco_TooFar.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\BT_Service_FindTarget.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\BT_Service_FindTarget.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\BT_Service_SpawnSetting.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\BT_Service_SpawnSetting.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\BT_Task_Attack.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

@@ -29,11 +29,33 @@ EBTNodeResult::Type UBT_Task_FindRandomPos::ExecuteTask(UBehaviorTreeComponent& 
 	if (naviSystem == nullptr)
 		return EBTNodeResult::Type::Failed;
 
+	auto blackboard = OwnerComp.GetBlackboardComponent();
+	if (blackboard == nullptr)
+		return EBTNodeResult::Type::Failed;
+
 	FNavLocation randLocation;
 
-	if (naviSystem->GetRandomPointInNavigableRadius(currentPawn->GetActorLocation(), 500.0f, randLocation))
+	while (naviSystem->GetRandomPointInNavigableRadius(currentPawn->GetActorLocation(), 500.0f, randLocation))
 	{
-		OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName(TEXT("RandPos")), randLocation);
+		//calc spPos to randPos dist
+		FVector randpos = randLocation.Location;
+		FVector spPos = blackboard->GetValueAsVector(FName(TEXT("SpawnPoint")));
+		float range = blackboard->GetValueAsFloat(FName(TEXT("Range")));
+		float dist = FVector::Dist(spPos, randpos);
+		
+		FVector actorPos = currentPawn->GetActorLocation();
+		float actDist = FVector::Dist(spPos, actorPos);
+
+		if (actDist >= range)
+		{
+			blackboard->SetValueAsVector(FName(TEXT("RandPos")), spPos); 
+			return EBTNodeResult::Type::Succeeded; 
+		}
+
+		if (dist >= range)
+			continue;
+
+		blackboard->SetValueAsVector(FName(TEXT("RandPos")), randLocation);
 		return EBTNodeResult::Type::Succeeded;
 	}
 
