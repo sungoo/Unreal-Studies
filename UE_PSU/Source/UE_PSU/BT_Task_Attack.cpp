@@ -4,6 +4,7 @@
 #include "BT_Task_Attack.h"
 
 #include "MyEnemy.h"
+#include "MyPlayer.h"
 
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardData.h"

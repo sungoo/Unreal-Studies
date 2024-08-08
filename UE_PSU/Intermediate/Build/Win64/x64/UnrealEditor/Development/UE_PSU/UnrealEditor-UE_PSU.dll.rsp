@@ -35,6 +35,7 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN:6
+/NATVIS:"..\Plugins\FX\Niagara\Intermediate\Build\Win64\x64\UnrealEditor\Development\Niagara\Niagara.natvis"
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UE_PSUEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\Module.UE_PSU.cpp.obj"
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\Default.rc2.res"
@@ -47,6 +48,7 @@
 "..\Plugins\EnhancedInput\Intermediate\Build\Win64\x64\UnrealEditor\Development\EnhancedInput\UnrealEditor-EnhancedInput.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\NavigationSystem\UnrealEditor-NavigationSystem.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\GameplayTasks\UnrealEditor-GameplayTasks.lib"
+"..\Plugins\FX\Niagara\Intermediate\Build\Win64\x64\UnrealEditor\Development\Niagara\UnrealEditor-Niagara.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"

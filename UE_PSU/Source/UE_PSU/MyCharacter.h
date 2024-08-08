@@ -93,4 +93,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
 	class AAIController* _aiController;
+
+	//Particle
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
+	//class UNiagaraSystem* _vfx
 };

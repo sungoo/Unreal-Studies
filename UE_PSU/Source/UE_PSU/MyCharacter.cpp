@@ -30,6 +30,8 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
+//particle
+
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -74,6 +76,14 @@ AMyCharacter::AMyCharacter()
 	}
 
 	APawn::AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+
+	/*static ConstructorHelpers::FObjectFinder<> pt(
+		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/MagicalExplosion/Systems/N_MagicalExplosion.N_MagicalExplosion'")
+	);
+	if (pt.Succeeded())
+	{
+		_vfx = pt.Object;
+	}*/
 }
 
 // Called when the game starts or when spawned
@@ -190,22 +200,27 @@ void AMyCharacter::AttackHit()
 	//본인은 무시..
 	FCollisionQueryParams params(NAME_None, false, this);
 	
-	float attackRange = 500.0f;
+	float attackRange = 1000.0f;
 	float attackRadius = 80.0f;
+	float harfheight = attackRange * 0.5f;
+	FVector foward = GetActorForwardVector();
+	FQuat quat = FQuat::FindBetweenVectors(FVector::UpVector, foward);
+	FVector center = GetActorLocation() + foward * harfheight;
+
+	FVector start = GetActorLocation();
+	FVector end = start + foward * harfheight;
 
 	bool bResult = GetWorld()->SweepSingleByChannel
 	(
 		hitResult,
-		GetActorLocation(),
-		GetActorLocation() + GetActorForwardVector() * attackRange,
-		FQuat::Identity,
+		start,
+		end,
+		quat,
 		ECollisionChannel::ECC_GameTraceChannel2,
-		FCollisionShape::MakeCapsule(attackRadius, attackRange),
+		FCollisionShape::MakeCapsule(attackRadius, harfheight),
 		params
 	);
 
-	FVector vec = GetActorForwardVector() * attackRange;
-	FVector center = GetActorLocation() + vec * 0.5f;
 	FQuat rot = (FQuat)(GetActorRotation());
 
 	FColor drawColor = FColor::Green;
@@ -222,7 +237,7 @@ void AMyCharacter::AttackHit()
 	}
 
 	DrawDebugCapsule(
-		GetWorld(), center, attackRange, attackRadius, rot, drawColor, false, 2.0f
+		GetWorld(), center, harfheight, attackRadius, quat, drawColor, false, 2.0f
 	);
 	/*DrawDebugSphere(
 		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
