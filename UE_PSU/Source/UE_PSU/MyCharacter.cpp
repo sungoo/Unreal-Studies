@@ -21,6 +21,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Components/Button.h"
@@ -71,6 +72,8 @@ AMyCharacter::AMyCharacter()
 	{
 		_hpBarWidget->SetWidgetClass(hpBar.Class);
 	}
+
+	APawn::AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 // Called when the game starts or when spawned
@@ -91,7 +94,6 @@ void AMyCharacter::PostInitializeComponents()
 		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
 		_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
-		_statCom->_deathDelegate.AddUObject(this, &AMyCharacter::Unpossess);
 	}
 
 	_statCom->SetLevelAndInit(1);
@@ -112,6 +114,8 @@ void AMyCharacter::Init()
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
+
+	_statCom->_deathDelegate.AddUObject(this, &AMyCharacter::Unpossess);
 
 	if (_aiController && GetController() == nullptr)
 	{
@@ -136,7 +140,6 @@ void AMyCharacter::Unpossess()
 		return;
 
 	GetController()->UnPossess();
-	UnPossessed();
 }
 
 float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -197,12 +200,13 @@ void AMyCharacter::AttackHit()
 		GetActorLocation() + GetActorForwardVector() * attackRange,
 		FQuat::Identity,
 		ECollisionChannel::ECC_GameTraceChannel2,
-		FCollisionShape::MakeSphere(attackRadius),
+		FCollisionShape::MakeCapsule(attackRadius, attackRange),
 		params
 	);
 
 	FVector vec = GetActorForwardVector() * attackRange;
 	FVector center = GetActorLocation() + vec * 0.5f;
+	FQuat rot = (FQuat)(GetActorRotation());
 
 	FColor drawColor = FColor::Green;
 
@@ -217,9 +221,12 @@ void AMyCharacter::AttackHit()
 		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, GetController(), this, nullptr);
 	}
 
-	DrawDebugSphere(
-		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
+	DrawDebugCapsule(
+		GetWorld(), center, attackRange, attackRadius, rot, drawColor, false, 2.0f
 	);
+	/*DrawDebugSphere(
+		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
+	);*/
 }
 
 bool AMyCharacter::ItemGetter(AMyItem* item)
