@@ -28,10 +28,15 @@
 
 #include "GameFramework/Controller.h"
 
-#include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
+//niagara
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 //particle
-
+#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -77,13 +82,35 @@ AMyCharacter::AMyCharacter()
 
 	APawn::AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
-	/*static ConstructorHelpers::FObjectFinder<> pt(
-		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/MagicalExplosion/Systems/N_MagicalExplosion.N_MagicalExplosion'")
+	/*static ConstructorHelpers::FObjectFinder<UNiagaraSystem> pt1(
+		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/EarthExplosion/Systems/N_EarthExplosion.N_EarthExplosion'")
+	);
+	if (pt1.Succeeded())
+	{
+		_hitVFX = pt1.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UNiagaraSystem> pt2(
+		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/EnergyBlast/Systems/N_EnergyBlast.N_EnergyBlast'")
+	);
+	if (pt2.Succeeded())
+	{
+		_deathVFX = pt2.Object;
+	}*/
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> PT(
+		TEXT("/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/Abilities/Mark/FX/P_Revenant_Mark_Hit.P_Revenant_Mark_Hit'")
+	);
+	if (PT.Succeeded())
+	{
+		_hitVFX = PT.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> pt(
+		TEXT("/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/P_Revenant_Recall_Start.P_Revenant_Recall_Start'")
 	);
 	if (pt.Succeeded())
 	{
-		_vfx = pt.Object;
-	}*/
+		_deathVFX = pt.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -113,6 +140,8 @@ void AMyCharacter::PostInitializeComponents()
 	if (hpBar)
 	{
 		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
+		//_statCom->_hpChangedDelegate.AddUObject(this, &AMyCharacter::PlayHitNiagara);
+		//_statCom->_deathDelegate.AddUObject(this, &AMyCharacter::PlayDeathNiagara);
 	}
 }
 
@@ -141,6 +170,16 @@ void AMyCharacter::Disable()
 	SetActorEnableCollision(false);
 	PrimaryActorTick.bCanEverTick = false;
 
+	if (_deathVFX)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(
+			GetWorld(),
+			_deathVFX,
+			GetActorLocation(),
+			FRotator::ZeroRotator
+		);
+	}
+
 	Unpossess();
 }
 
@@ -151,6 +190,38 @@ void AMyCharacter::Unpossess()
 
 	GetController()->UnPossess();
 }
+
+//void AMyCharacter::PlayHitNiagara(float num)
+//{
+//	UNiagaraComponent* nc = UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+//		GetWorld(),
+//		_hitVFX,
+//		GetActorLocation(),
+//		FRotator::ZeroRotator,
+//		FVector(1.0f),
+//		true,
+//		true,
+//		ENCPoolMethod::None,
+//		true
+//	);
+//	nc->SetNiagaraVariableBool(FString(TEXT("Explosion")), false);
+//
+//	if (nc)
+//	{
+//		nc->SetAutoDestroy(true);
+//		nc->Deactivate();
+//	}
+//}
+//
+//void AMyCharacter::PlayDeathNiagara()
+//{
+//	UNiagaraComponent* nc = UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+//		GetWorld(),
+//		_deathVFX,
+//		GetActorLocation()
+//	);
+//	nc->SetNiagaraVariableBool(FString(TEXT("Explosion")), false);
+//}
 
 float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
@@ -201,7 +272,7 @@ void AMyCharacter::AttackHit()
 	FCollisionQueryParams params(NAME_None, false, this);
 	
 	float attackRange = 1000.0f;
-	float attackRadius = 80.0f;
+	float attackRadius = 20.0f;
 	float harfheight = attackRange * 0.5f;
 	FVector foward = GetActorForwardVector();
 	FQuat quat = FQuat::FindBetweenVectors(FVector::UpVector, foward);
@@ -233,12 +304,23 @@ void AMyCharacter::AttackHit()
 		//Todo : Takedamage
 		FDamageEvent damageEvent;
 		hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamage(), damageEvent, GetController(), this);
-		//UGameplayStatics::ApplyDamage(hitResult.GetActor(), _atk, GetController(), this, nullptr);
+		FVector hitPoint = hitResult.ImpactPoint;
+		
+		if (_hitVFX)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(
+				GetWorld(),
+				_hitVFX,
+				hitPoint,
+				FRotator::ZeroRotator
+			);
+		}
 	}
 
-	DrawDebugCapsule(
+	//Debug
+	/*DrawDebugCapsule(
 		GetWorld(), center, harfheight, attackRadius, quat, drawColor, false, 2.0f
-	);
+	);*/
 	/*DrawDebugSphere(
 		GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f
 	);*/

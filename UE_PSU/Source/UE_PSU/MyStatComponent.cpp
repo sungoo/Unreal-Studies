@@ -57,6 +57,7 @@ void UMyStatComponent::SetHp(int32 hp)
 		_curhp = _maxhp;
 
 	float ratio = HpRatio();
+	
 	_hpChangedDelegate.Broadcast(ratio);
 }
 

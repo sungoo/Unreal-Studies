@@ -40,6 +40,7 @@ protected:
 
 	UFUNCTION()
 	void Unpossess();
+
 public:	
 	//Attack function
 	UFUNCTION()
@@ -51,6 +52,11 @@ public:
 		float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser
 	) override;
 	int32 GetcurHP();
+
+	/*UFUNCTION()
+	void PlayHitNiagara(float num);
+	UFUNCTION()
+	void PlayDeathNiagara();*/
 
 	//Item function
 	bool ItemGetter(class AMyItem* item);
@@ -94,7 +100,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
 	class AAIController* _aiController;
 
+	//Niagara
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
+	class UNiagaraSystem* _hitVFX;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
+	class UNiagaraSystem* _deathVFX;*/
 	//Particle
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
-	//class UNiagaraSystem* _vfx
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Particle, meta = (AllowPrivateAccess = "true"))
+	class UParticleSystem* _hitVFX;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Particle, meta = (AllowPrivateAccess = "true"))
+	class UParticleSystem* _deathVFX;
 };
