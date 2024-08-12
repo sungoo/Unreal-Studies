@@ -3,6 +3,7 @@
 
 #include "MyGameInstance.h"
 #include "MyUIManager.h"
+#include "MyEffectManager.h"
 
 UMyGameInstance::UMyGameInstance()
 {
@@ -38,8 +39,12 @@ void UMyGameInstance::Init()
 	UE_LOG(LogTemp, Error, TEXT("Item Type : %d"), (int32)itemdata->itemType);
 
 	FActorSpawnParameters params;
+
 	params.Name = (TEXT("UIManager"));
 	_uiManager = GetWorld()->SpawnActor<AMyUIManager>(FVector::ZeroVector, FRotator::ZeroRotator, params);
+
+	params.Name = (TEXT("EffectManager"));
+	_effectManager = GetWorld()->SpawnActor<AMyEffectManager>(FVector::ZeroVector, FRotator::ZeroRotator, params);
 }
 
 FMyStatData* UMyGameInstance::GetStatDataByLevel(int level)

@@ -18,6 +18,8 @@ DECLARE_DELEGATE(DelegateTest1);
 DECLARE_DELEGATE_OneParam(DelegateTestOneParam, int32);
 DECLARE_DELEGATE_TwoParams(DelegateTestTwoParam, int32, int32);
 DECLARE_MULTICAST_DELEGATE(Delegate_AttackEnded);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_AttackHitEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_Death);
 
 UCLASS()
 class UE_PSU_API AMyCharacter : public ACharacter
@@ -63,6 +65,10 @@ public:
 	void DropAllItems();
 
 	Delegate_AttackEnded _attackEndedDelegate;
+	UPROPERTY(EditAnywhere, BlueprintAssignable, Category = Event, meta = (AllowPrivateAccess = "true"))
+	FDelegate_AttackHitEvent _attackHitEvent;
+	UPROPERTY(EditAnywhere, BlueprintAssignable, Category = Event, meta = (AllowPrivateAccess = "true"))
+	FDelegate_Death _deathEvent;
 
 public:
 
@@ -77,6 +83,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	int _curAttackSection = 0;
+	
+	//AttackHitPoint
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AttackHit, meta = (AllowPrivateAccess = "true"))
+	FVector _hitPoint;
 
 	//Animation
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
@@ -105,9 +115,5 @@ public:
 	class UNiagaraSystem* _hitVFX;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
 	class UNiagaraSystem* _deathVFX;*/
-	//Particle
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Particle, meta = (AllowPrivateAccess = "true"))
-	class UParticleSystem* _hitVFX;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Particle, meta = (AllowPrivateAccess = "true"))
-	class UParticleSystem* _deathVFX;
+	
 };

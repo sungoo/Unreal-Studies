@@ -39,12 +39,17 @@ void AMyAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
+	float canMoveRadius = 2000.0f;
+
 	//GetWorld()->GetTimerManager().SetTimer(_timerHandle, this, &AMyAIController::RandMove, 0.3f, true);
 	UBlackboardComponent* temp = Blackboard;
 	if (UseBlackboard(_bData, temp))
 	{
 		if (RunBehaviorTree(_bTree))
 		{
+			temp->SetValueAsVector(FName("SpawnPoint"), InPawn->GetActorLocation());
+			temp->SetValueAsFloat(FName("Range"), canMoveRadius);
+			temp->SetValueAsBool(FName("IsSPupdated"), true);
 			UE_LOG(LogTemp, Display, TEXT("behavior Tree"));
 		}
 	}

@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeMyGameInstance() {}
 // Begin Cross Module References
 ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UGameInstance();
+UE_PSU_API UClass* Z_Construct_UClass_AMyEffectManager_NoRegister();
 UE_PSU_API UClass* Z_Construct_UClass_AMyUIManager_NoRegister();
 UE_PSU_API UClass* Z_Construct_UClass_UMyGameInstance();
 UE_PSU_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
@@ -41,6 +42,13 @@ struct Z_Construct_UClass_UMyGameInstance_Statics
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__uiManager_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "MyGameInstance" },
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__effectManager_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "MyGameInstance" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__bisInitial_MetaData[] = {
@@ -50,6 +58,7 @@ struct Z_Construct_UClass_UMyGameInstance_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__statTable;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__itemTable;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__uiManager;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__effectManager;
 	static void NewProp__bisInitial_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp__bisInitial;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -61,7 +70,8 @@ struct Z_Construct_UClass_UMyGameInstance_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__statTable = { "_statTable", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _statTable), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statTable_MetaData), NewProp__statTable_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__itemTable = { "_itemTable", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _itemTable), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__itemTable_MetaData), NewProp__itemTable_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__uiManager = { "_uiManager", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _uiManager), Z_Construct_UClass_AMyUIManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__uiManager_MetaData), NewProp__uiManager_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__uiManager = { "_uiManager", nullptr, (EPropertyFlags)0x0040000000020005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _uiManager), Z_Construct_UClass_AMyUIManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__uiManager_MetaData), NewProp__uiManager_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__effectManager = { "_effectManager", nullptr, (EPropertyFlags)0x0040000000020005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _effectManager), Z_Construct_UClass_AMyEffectManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__effectManager_MetaData), NewProp__effectManager_MetaData) };
 void Z_Construct_UClass_UMyGameInstance_Statics::NewProp__bisInitial_SetBit(void* Obj)
 {
 	((UMyGameInstance*)Obj)->_bisInitial = 1;
@@ -71,6 +81,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyGameIn
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__statTable,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__itemTable,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__uiManager,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__effectManager,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__bisInitial,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::PropPointers) < 2048);
@@ -114,10 +125,10 @@ UMyGameInstance::~UMyGameInstance() {}
 struct Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyGameInstance_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UMyGameInstance, UMyGameInstance::StaticClass, TEXT("UMyGameInstance"), &Z_Registration_Info_UClass_UMyGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyGameInstance), 2973659294U) },
+		{ Z_Construct_UClass_UMyGameInstance, UMyGameInstance::StaticClass, TEXT("UMyGameInstance"), &Z_Registration_Info_UClass_UMyGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyGameInstance), 4292332513U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyGameInstance_h_2687795429(TEXT("/Script/UE_PSU"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyGameInstance_h_2845135836(TEXT("/Script/UE_PSU"),
 	Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyGameInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyGameInstance_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

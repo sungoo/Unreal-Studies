@@ -33,10 +33,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 //particle
-#include "Particles/ParticleSystem.h"
-#include "Particles/ParticleSystemComponent.h"
-#include "Kismet/GameplayStatics.h"
-#include "Engine/World.h"
+#include "MyEffectManager.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -97,20 +94,7 @@ AMyCharacter::AMyCharacter()
 		_deathVFX = pt2.Object;
 	}*/
 
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PT(
-		TEXT("/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/Abilities/Mark/FX/P_Revenant_Mark_Hit.P_Revenant_Mark_Hit'")
-	);
-	if (PT.Succeeded())
-	{
-		_hitVFX = PT.Object;
-	}
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> pt(
-		TEXT("/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/P_Revenant_Recall_Start.P_Revenant_Recall_Start'")
-	);
-	if (pt.Succeeded())
-	{
-		_deathVFX = pt.Object;
-	}
+	
 }
 
 // Called when the game starts or when spawned
@@ -170,15 +154,8 @@ void AMyCharacter::Disable()
 	SetActorEnableCollision(false);
 	PrimaryActorTick.bCanEverTick = false;
 
-	if (_deathVFX)
-	{
-		UGameplayStatics::SpawnEmitterAtLocation(
-			GetWorld(),
-			_deathVFX,
-			GetActorLocation(),
-			FRotator::ZeroRotator
-		);
-	}
+	//_deathEvent.Broadcast();
+	EffectManager->Play("Death", GetActorLocation());
 
 	Unpossess();
 }
@@ -304,17 +281,10 @@ void AMyCharacter::AttackHit()
 		//Todo : Takedamage
 		FDamageEvent damageEvent;
 		hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamage(), damageEvent, GetController(), this);
-		FVector hitPoint = hitResult.ImpactPoint;
-		
-		if (_hitVFX)
-		{
-			UGameplayStatics::SpawnEmitterAtLocation(
-				GetWorld(),
-				_hitVFX,
-				hitPoint,
-				FRotator::ZeroRotator
-			);
-		}
+		_hitPoint = hitResult.ImpactPoint;
+
+		//_attackHitEvent.Broadcast();
+		EffectManager->Play("Shoot", _hitPoint);
 	}
 
 	//Debug
