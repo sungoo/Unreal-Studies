@@ -72,3 +72,6 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+UE_PSU/Content/ModularSciFi/Levels/LandscapePreview.umap
+UE_PSU/Content/ModularSciFi/Textures/Water/T_WaterDirt_normal.uasset
+UE_PSU/Saved/Autosaves/Game/ModularSciFi/Levels/LandscapePreview_Auto1.umap
