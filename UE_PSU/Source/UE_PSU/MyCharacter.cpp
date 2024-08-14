@@ -284,7 +284,7 @@ void AMyCharacter::AttackHit()
 		_hitPoint = hitResult.ImpactPoint;
 
 		//_attackHitEvent.Broadcast();
-		EffectManager->Play("Shoot", _hitPoint);
+		EffectManager->Play("Explosion", _hitPoint);
 	}
 
 	//Debug

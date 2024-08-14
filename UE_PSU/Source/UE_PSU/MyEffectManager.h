@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "MyEffectManager.generated.h"
 
+class AMyEffect;
+
 UCLASS()
 class UE_PSU_API AMyEffectManager : public AActor
 {
@@ -16,18 +18,26 @@ public:
 	AMyEffectManager();
 
 protected:
-	void CreateParticle(FString name, FString path);
+	void CreateParticleClass(FString name, FString path);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void CreateEffect();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void Play(FString name, FVector location, FRotator rotator = FRotator::ZeroRotator);
-
 private:
 	int32 _poolCount = 5;
-	TMap<FString, class UParticleSystem*> _pTable;
+
+	UPROPERTY()
+	TMap<FString, TSubclassOf<AMyEffect>> _classTable;
+
+	TMap<FString, TArray<AMyEffect*>> _effectTable;
+
+	UPROPERTY(VisibleAnywhere)
+	AMyEffect* _myEffect;
 };

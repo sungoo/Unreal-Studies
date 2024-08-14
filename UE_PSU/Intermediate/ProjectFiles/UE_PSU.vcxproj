@@ -303,6 +303,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h"/>
+    <ClCompile Include="..\..\Source\UE_PSU\MyEffect.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyEffect.h"/>
     <ClCompile Include="..\..\Source\UE_PSU\MyEffectManager.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

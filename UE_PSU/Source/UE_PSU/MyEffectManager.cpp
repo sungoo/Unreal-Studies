@@ -2,6 +2,7 @@
 
 
 #include "MyEffectManager.h"
+#include "MyEffect.h"
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
@@ -12,25 +13,34 @@ AMyEffectManager::AMyEffectManager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	CreateParticle(
-		"Shoot",
-		"/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/Abilities/Mark/FX/P_Revenant_Mark_Hit.P_Revenant_Mark_Hit'"
+	CreateParticleClass(
+		TEXT("Explosion"),
+		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/VFX/MyEffect_BP.MyEffect_BP_C'")
 	);
-	CreateParticle(
-		"Death",
-		"/Script/Engine.ParticleSystem'/Game/ParagonRevenant/FX/Particles/Revenant/P_Revenant_Recall_Start.P_Revenant_Recall_Start'"
+
+	CreateParticleClass(
+		TEXT("Death"),
+		TEXT("/Script/Engine.Blueprint'/Game/BluePrint/VFX/MyDeathEffect_BP.MyDeathEffect_BP_C'")
 	);
 }
 
-void AMyEffectManager::CreateParticle(FString name, FString path)
+void AMyEffectManager::CreateParticleClass(FString name, FString path)
 {
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> explosion(*path);
+	if (_classTable.Contains(name) == true)
 	{
-		if (explosion.Succeeded())
-		{
-			UParticleSystem* particle = explosion.Object;
-			_pTable.Add(name, particle);
-		}
+		UE_LOG(LogTemp, Error, TEXT("%s already exist in classtable"), *name);
+		return;
+	}
+
+	static ConstructorHelpers::FClassFinder<AMyEffect> effect(*path);
+	if (effect.Succeeded())
+	{
+		_classTable.Add(name);
+		_classTable[name] = effect.Class;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("cannot find : %s"), *path);
 	}
 }
 
@@ -39,6 +49,24 @@ void AMyEffectManager::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	CreateEffect();
+}
+
+void AMyEffectManager::CreateEffect()
+{
+	for (auto classPair : _classTable)
+	{
+		FString name = classPair.Key;
+
+		_effectTable.Add(name);
+		for (int i = 0; i < _poolCount; i++)
+		{
+			auto effect = GetWorld()->SpawnActor<AMyEffect>(classPair.Value, FVector::ZeroVector, FRotator::ZeroRotator);
+			
+			effect->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+			_effectTable[name].Add(effect);
+		}
+	}
 }
 
 // Called every frame
@@ -50,14 +78,28 @@ void AMyEffectManager::Tick(float DeltaTime)
 
 void AMyEffectManager::Play(FString name, FVector location, FRotator rotator)
 {
-	if (_pTable.Contains(name) == false)
+	if (_effectTable.Contains(name) == false)
 		return;
 
-	UGameplayStatics::SpawnEmitterAtLocation(
-		GetWorld(),
-		_pTable[name],
-		location,
-		rotator
+	/*for (int i = 0; i < _poolCount; i++)
+	{
+		if ((_effectTable[name])[i]->IsPlaying())
+			continue;
+		else {
+			(_effectTable[name])[i]->Play(location, rotator);
+			return;
+		}
+	}*/
+
+	auto findEffect = _effectTable[name].FindByPredicate(
+		[](AMyEffect* effect)->bool
+		{
+			if (effect->IsPlaying())
+				return false;
+			return true;
+		}
 	);
+	if(findEffect)
+		(*findEffect)->Play(location, rotator);
 }
 
