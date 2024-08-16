@@ -34,6 +34,8 @@
 #include "NiagaraFunctionLibrary.h"
 //particle
 #include "MyEffectManager.h"
+//projectile
+#include "MyProjectile.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -78,21 +80,6 @@ AMyCharacter::AMyCharacter()
 	}
 
 	APawn::AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
-
-	/*static ConstructorHelpers::FObjectFinder<UNiagaraSystem> pt1(
-		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/EarthExplosion/Systems/N_EarthExplosion.N_EarthExplosion'")
-	);
-	if (pt1.Succeeded())
-	{
-		_hitVFX = pt1.Object;
-	}
-	static ConstructorHelpers::FObjectFinder<UNiagaraSystem> pt2(
-		TEXT("/Script/Niagara.NiagaraSystem'/Game/MegaMagicVFXBundle/VFX/MagicalExplosionsVFX/VFX/EnergyBlast/Systems/N_EnergyBlast.N_EnergyBlast'")
-	);
-	if (pt2.Succeeded())
-	{
-		_deathVFX = pt2.Object;
-	}*/
 
 	
 }
@@ -168,38 +155,6 @@ void AMyCharacter::Unpossess()
 	GetController()->UnPossess();
 }
 
-//void AMyCharacter::PlayHitNiagara(float num)
-//{
-//	UNiagaraComponent* nc = UNiagaraFunctionLibrary::SpawnSystemAtLocation(
-//		GetWorld(),
-//		_hitVFX,
-//		GetActorLocation(),
-//		FRotator::ZeroRotator,
-//		FVector(1.0f),
-//		true,
-//		true,
-//		ENCPoolMethod::None,
-//		true
-//	);
-//	nc->SetNiagaraVariableBool(FString(TEXT("Explosion")), false);
-//
-//	if (nc)
-//	{
-//		nc->SetAutoDestroy(true);
-//		nc->Deactivate();
-//	}
-//}
-//
-//void AMyCharacter::PlayDeathNiagara()
-//{
-//	UNiagaraComponent* nc = UNiagaraFunctionLibrary::SpawnSystemAtLocation(
-//		GetWorld(),
-//		_deathVFX,
-//		GetActorLocation()
-//	);
-//	nc->SetNiagaraVariableBool(FString(TEXT("Explosion")), false);
-//}
-
 float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	//TODO
@@ -239,6 +194,19 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 
 void AMyCharacter::AttackHit()
 {
+	//Projectile Test
+	//Todo : Projectile Skill..
+	if (_projectileClass)
+	{
+		FVector forward = GetActorForwardVector();
+		FVector firelocation = GetActorLocation() + forward * 150;
+
+		auto projectile = GetWorld()->SpawnActor<AMyProjectile>(_projectileClass, firelocation, FRotator::ZeroRotator);
+		projectile->FireInDirection(forward);
+	}
+
+	//Attack Chanel
+	
 	//하고싶으면 하기
 	// 1. 히트스캔으로 공격하기. AttackRange는 본인 마음대로.
 	// DebugDraw 까지

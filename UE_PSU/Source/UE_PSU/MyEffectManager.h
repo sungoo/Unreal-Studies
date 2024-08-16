@@ -40,4 +40,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	AMyEffect* _myEffect;
+
+	UPROPERTY()
+	class USceneComponent* _rootComponent;
 };

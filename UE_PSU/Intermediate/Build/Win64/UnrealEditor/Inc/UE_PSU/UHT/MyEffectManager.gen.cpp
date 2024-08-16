@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeMyEffectManager() {}
 // Begin Cross Module References
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
+ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 UE_PSU_API UClass* Z_Construct_UClass_AMyEffect_NoRegister();
 UE_PSU_API UClass* Z_Construct_UClass_AMyEffectManager();
 UE_PSU_API UClass* Z_Construct_UClass_AMyEffectManager_NoRegister();
@@ -41,11 +42,16 @@ struct Z_Construct_UClass_AMyEffectManager_Statics
 		{ "Category", "MyEffectManager" },
 		{ "ModuleRelativePath", "MyEffectManager.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__rootComponent_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyEffectManager.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FClassPropertyParams NewProp__classTable_ValueProp;
 	static const UECodeGen_Private::FStrPropertyParams NewProp__classTable_Key_KeyProp;
 	static const UECodeGen_Private::FMapPropertyParams NewProp__classTable;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__myEffect;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__rootComponent;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -57,11 +63,13 @@ const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyEffectManage
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_AMyEffectManager_Statics::NewProp__classTable_Key_KeyProp = { "_classTable_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_AMyEffectManager_Statics::NewProp__classTable = { "_classTable", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyEffectManager, _classTable), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__classTable_MetaData), NewProp__classTable_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyEffectManager_Statics::NewProp__myEffect = { "_myEffect", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyEffectManager, _myEffect), Z_Construct_UClass_AMyEffect_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__myEffect_MetaData), NewProp__myEffect_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyEffectManager_Statics::NewProp__rootComponent = { "_rootComponent", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyEffectManager, _rootComponent), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__rootComponent_MetaData), NewProp__rootComponent_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyEffectManager_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEffectManager_Statics::NewProp__classTable_ValueProp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEffectManager_Statics::NewProp__classTable_Key_KeyProp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEffectManager_Statics::NewProp__classTable,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEffectManager_Statics::NewProp__myEffect,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyEffectManager_Statics::NewProp__rootComponent,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyEffectManager_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyEffectManager_Statics::DependentSingletons[])() = {
@@ -104,10 +112,10 @@ AMyEffectManager::~AMyEffectManager() {}
 struct Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEffectManager_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyEffectManager, AMyEffectManager::StaticClass, TEXT("AMyEffectManager"), &Z_Registration_Info_UClass_AMyEffectManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyEffectManager), 2663165359U) },
+		{ Z_Construct_UClass_AMyEffectManager, AMyEffectManager::StaticClass, TEXT("AMyEffectManager"), &Z_Registration_Info_UClass_AMyEffectManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyEffectManager), 1689275004U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEffectManager_h_3001652150(TEXT("/Script/UE_PSU"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEffectManager_h_2327792781(TEXT("/Script/UE_PSU"),
 	Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEffectManager_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyEffectManager_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

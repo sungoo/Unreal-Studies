@@ -110,10 +110,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = AI, meta = (AllowPrivateAccess = "true"))
 	class AAIController* _aiController;
 
-	//Niagara
-	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
-	class UNiagaraSystem* _hitVFX;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Naiagara, meta = (AllowPrivateAccess = "true"))
-	class UNiagaraSystem* _deathVFX;*/
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AMyProjectile> _projectileClass;
 };

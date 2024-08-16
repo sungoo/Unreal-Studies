@@ -184,6 +184,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyPlayerController.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyProjectile.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyProjectile.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MySoundManager.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>
