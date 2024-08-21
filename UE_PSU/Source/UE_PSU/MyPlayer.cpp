@@ -25,6 +25,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 
+#include "Engine/DamageEvents.h"
+#include "MyEffectManager.h"
+
 AMyPlayer::AMyPlayer()
 {
 	//컨트롤러에 따른 회전 막음
@@ -121,6 +124,68 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		// OpenUI
 		EnhancedInputComponent->BindAction(_InventoryAction, ETriggerEvent::Started, this, &AMyPlayer::OpenUI);
 	}
+}
+
+void AMyPlayer::AttackHit()
+{
+	//충돌처리
+	FHitResult hitResult;
+	//본인은 무시..
+	FCollisionQueryParams params(NAME_None, false, this);
+
+	float attackRange = 1000.0f;
+	float virtualAttackRange = 100000.0f;
+	float attackRadius = 20.0f;
+	float harfheight = attackRange * 0.5f;
+	FVector foward = _camera->GetForwardVector();
+	FQuat quat = FQuat::FindBetweenVectors(FVector::UpVector, foward);
+
+	FVector start = _camera->GetComponentLocation();
+	FVector end = start + foward * harfheight;
+	FVector center = (start + end) * 0.5f;
+
+	bool bResult = GetWorld()->SweepSingleByChannel
+	(
+		hitResult,
+		start,
+		end,
+		quat,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeCapsule(attackRadius,virtualAttackRange*0.5f),
+		params
+	);
+
+	FQuat rot = (FQuat)(GetActorRotation());
+
+	FColor drawColor = FColor::Green;
+
+	bool check = false;
+	auto victim = hitResult.GetActor();
+	if (victim)
+	{
+		FVector victimLoc = victim->GetActorLocation();
+		FVector myLoc = GetActorLocation();
+
+		check = FVector::Distance(myLoc, victimLoc) < attackRange;
+	}
+
+	if (bResult && hitResult.GetActor()->IsValidLowLevel() && check)
+	{
+		drawColor = FColor::Red;
+		UE_LOG(LogTemp, Log, TEXT("HitActor : %s"), *hitResult.GetActor()->GetName());
+
+		//Todo : Takedamage
+		FDamageEvent damageEvent;
+		hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamage(), damageEvent, GetController(), this);
+		_hitPoint = hitResult.ImpactPoint;
+
+		//_attackHitEvent.Broadcast();
+		EffectManager->Play("Explosion", _hitPoint);
+	}
+	//Debug
+	DrawDebugCapsule(
+		GetWorld(), center, harfheight, attackRadius, quat, drawColor, false, 2.0f
+	);
 }
 
 void AMyPlayer::TurnOffInvenUI()

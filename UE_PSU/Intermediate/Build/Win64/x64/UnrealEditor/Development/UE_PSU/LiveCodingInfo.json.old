@@ -27,6 +27,7 @@
 			"MyPawn.gen.cpp.obj",
 			"MyPlayer.gen.cpp.obj",
 			"MyPlayerController.gen.cpp.obj",
+			"MyProjectile.gen.cpp.obj",
 			"MySoundManager.gen.cpp.obj",
 			"MyStatComponent.gen.cpp.obj",
 			"MyUIManager.gen.cpp.obj",
@@ -41,7 +42,6 @@
 			"MyAIController.cpp.obj",
 			"MyAnimInstance.cpp.obj",
 			"MyCameraManager.cpp.obj",
-			"MyCharacter.cpp.obj",
 			"MyEffect.cpp.obj",
 			"MyEffectManager.cpp.obj",
 			"MyEnemy.cpp.obj",
@@ -54,12 +54,14 @@
 			"MyItem.cpp.obj",
 			"MyJumpButton.cpp.obj",
 			"MyPawn.cpp.obj",
-			"MyPlayer.cpp.obj",
 			"MyPlayerController.cpp.obj",
+			"MyProjectile.cpp.obj",
 			"MySoundManager.cpp.obj",
 			"MyStatComponent.cpp.obj",
 			"MyUIManager.cpp.obj",
-			"UE_PSU.cpp.obj"
+			"UE_PSU.cpp.obj",
+			"MyCharacter.cpp.obj",
+			"MyPlayer.cpp.obj"
 		]
 	}
 }
