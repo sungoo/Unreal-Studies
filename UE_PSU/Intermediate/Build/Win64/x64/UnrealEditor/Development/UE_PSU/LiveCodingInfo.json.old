@@ -42,6 +42,7 @@
 			"MyAIController.cpp.obj",
 			"MyAnimInstance.cpp.obj",
 			"MyCameraManager.cpp.obj",
+			"MyCharacter.cpp.obj",
 			"MyEffect.cpp.obj",
 			"MyEffectManager.cpp.obj",
 			"MyEnemy.cpp.obj",
@@ -54,14 +55,13 @@
 			"MyItem.cpp.obj",
 			"MyJumpButton.cpp.obj",
 			"MyPawn.cpp.obj",
+			"MyPlayer.cpp.obj",
 			"MyPlayerController.cpp.obj",
 			"MyProjectile.cpp.obj",
 			"MySoundManager.cpp.obj",
 			"MyStatComponent.cpp.obj",
 			"MyUIManager.cpp.obj",
-			"UE_PSU.cpp.obj",
-			"MyCharacter.cpp.obj",
-			"MyPlayer.cpp.obj"
+			"UE_PSU.cpp.obj"
 		]
 	}
 }

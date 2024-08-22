@@ -8,12 +8,6 @@
 /NODEFAULTLIB
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UE_PSUEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\Module.UE_PSU.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyCharacter.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyPlayer.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyCharacter.gen.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyEnemy.gen.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyGunAttacker.gen.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyPlayer.gen.cpp.obj"
-"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\UE_PSU.init.gen.cpp.obj"
+"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\MyUIManager.cpp.obj"
 "C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\Default.rc2.res"
 /OUT:"C:\Users\User\Desktop\SGA_Study\Unreal-Studies\UE_PSU\Intermediate\Build\Win64\x64\UnrealEditor\Development\UE_PSU\UnrealEditor-UE_PSU.lib"

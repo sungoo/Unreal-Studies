@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define UE_PSU_MyUIManager_generated_h
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_14_INCLASS_NO_PURE_DECLS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_22_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMyUIManager(); \
 	friend struct Z_Construct_UClass_AMyUIManager_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(AMyUIManager)
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMyUIManager(AMyUIManager&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~AMyUIManager();
 
 
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_11_PROLOG
-#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_14_GENERATED_BODY \
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_19_PROLOG
+#define FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_14_INCLASS_NO_PURE_DECLS \
-	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_22_INCLASS_NO_PURE_DECLS \
+	FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -50,5 +50,13 @@ template<> UE_PSU_API UClass* StaticClass<class AMyUIManager>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_User_Desktop_SGA_Study_Unreal_Studies_UE_PSU_Source_UE_PSU_MyUIManager_h
 
+
+#define FOREACH_ENUM_UITYPE(op) \
+	op(UIType::CrossHair) \
+	op(UIType::Inventory) 
+
+enum class UIType : int32;
+template<> struct TIsUEnumClass<UIType> { enum { Value = true }; };
+template<> UE_PSU_API UEnum* StaticEnum<UIType>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

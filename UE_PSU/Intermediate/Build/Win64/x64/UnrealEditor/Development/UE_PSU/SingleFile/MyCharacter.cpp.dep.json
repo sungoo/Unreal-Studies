@@ -1332,7 +1332,9 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagarasystem.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagarafunctionlibrary.generated.h",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\myeffectmanager.h",
-            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myeffectmanager.generated.h"
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myeffectmanager.generated.h",
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\myprojectile.h",
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myprojectile.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
