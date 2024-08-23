@@ -28,7 +28,6 @@
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MySoundManager.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyStatComponent.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyUIManager.gen.cpp"
-#include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/UE_PSU.init.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/BT_Deco_CanAttack.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/BT_Deco_TooFar.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/BT_Service_FindTarget.cpp"
@@ -57,4 +56,5 @@
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/MyProjectile.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/MySoundManager.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/MyStatComponent.cpp"
+#include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/MyUIManager.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Source/UE_PSU/UE_PSU.cpp"

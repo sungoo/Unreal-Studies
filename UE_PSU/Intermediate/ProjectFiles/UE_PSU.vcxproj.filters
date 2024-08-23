@@ -100,6 +100,12 @@
     <ClInclude Include="..\..\Source\UE_PSU\MyCharacter.h">
       <Filter>Source\UE_PSU</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE_PSU\MyDecalActor.cpp">
+      <Filter>Source\UE_PSU</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE_PSU\MyDecalActor.h">
+      <Filter>Source\UE_PSU</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE_PSU\MyEffect.cpp">
       <Filter>Source\UE_PSU</Filter>
     </ClCompile>

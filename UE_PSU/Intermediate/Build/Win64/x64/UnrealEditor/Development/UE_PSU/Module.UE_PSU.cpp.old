@@ -10,6 +10,7 @@
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyAnimInstance.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyCameraManager.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyCharacter.gen.cpp"
+#include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyDecalActor.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyEffect.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyEffectManager.gen.cpp"
 #include "C:/Users/User/Desktop/SGA_Study/Unreal-Studies/UE_PSU/Intermediate/Build/Win64/UnrealEditor/Inc/UE_PSU/UHT/MyEnemy.gen.cpp"

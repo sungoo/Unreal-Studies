@@ -172,7 +172,6 @@
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myuimanager.gen.cpp",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\myuimanager.h",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\myuimanager.generated.h",
-            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\intermediate\\build\\win64\\unrealeditor\\inc\\ue_psu\\uht\\ue_psu.init.gen.cpp",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\bt_deco_canattack.cpp",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\behaviortree.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\btcompositenode.h",
@@ -410,6 +409,7 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\projectilemovementcomponent.generated.h",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\mysoundmanager.cpp",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\mystatcomponent.cpp",
+            "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\myuimanager.cpp",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\ue_psu.cpp",
             "c:\\users\\user\\desktop\\sga_study\\unreal-studies\\ue_psu\\source\\ue_psu\\ue_psu.h"
         ],
